@@ -21,7 +21,11 @@ public class RegisterServerWorker extends Thread {
 
         // check unlive instance
         // internal 60s, timeout 90s.
-        new RegistryExpel(context.getBean(Registry.class)).start();
+        try {
+            new RegistryExpel(context.getBean(Registry.class)).start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 }

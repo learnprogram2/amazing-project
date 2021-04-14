@@ -1,11 +1,11 @@
 package cn.gasin.server.registry;
 
 import cn.gasin.api.server.InstanceInfo;
-import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 //
 
@@ -13,33 +13,49 @@ import java.util.Map;
  * check instanceInfo status, expel dead instanceInfo.
  */
 @Log4j2
-@AllArgsConstructor
-public class RegistryExpel extends Thread {
+public class RegistryExpel {
     private final Registry registry;
     private static final long INTERNAL = 60 * 1000;
     private static final Map<String, InstanceInfo> EMPTY_MAP = new HashMap<>();
 
-    //开始工作, 驱逐过期的instanceInfo
-    @Override
-    public void run() {
-        while (true) {
-            try {
-                Thread.sleep(INTERNAL);
+    private DaemonThread daemonThread;
 
-                Map<String, Map<String, InstanceInfo>> registry = this.registry.getRegistry();
-                for (String serviceName : registry.keySet()) {
-                    Map<String, InstanceInfo> serviceMap = registry.getOrDefault(serviceName, EMPTY_MAP);
-                    for (InstanceInfo instance : serviceMap.values()) {
-                        if (!instance.isAlive()) {
-                            log.warn("instance [{}] is dead", instance);
-                            serviceMap.remove(instance.getInstanceId());
+    public RegistryExpel(Registry registry) {
+        this.registry = registry;
+    }
+
+    public void start() throws Exception {
+        if (Objects.nonNull(daemonThread)) {
+            throw new Exception("不能重复启动");
+        }
+        daemonThread = new DaemonThread();
+        daemonThread.setDaemon(true);
+        daemonThread.start();
+    }
+
+    class DaemonThread extends Thread {
+
+        //开始工作, 驱逐过期的instanceInfo
+        public void run() {
+            while (true) {
+                try {
+                    Thread.sleep(INTERNAL);
+
+                    Map<String, Map<String, InstanceInfo>> registryMap = registry.getRegistry();
+                    for (String serviceName : registryMap.keySet()) {
+                        Map<String, InstanceInfo> serviceMap = registryMap.getOrDefault(serviceName, EMPTY_MAP);
+                        for (InstanceInfo instance : serviceMap.values()) {
+                            if (!instance.isAlive()) {
+                                log.warn("instance [{}] is dead", instance);
+                                serviceMap.remove(instance.getInstanceId());
+                            }
                         }
                     }
+                } catch (InterruptedException e) {
+                    log.warn("expel Registry thread was interrupted:{}. ", Thread.interrupted(), e);
+                } catch (Exception e) {
+                    log.error("expel Registry error:", e);
                 }
-            } catch (InterruptedException e) {
-                log.warn("expel Registry thread was interrupted:{}. ", Thread.interrupted(), e);
-            } catch (Exception e) {
-                log.error("expel Registry error:", e);
             }
         }
     }
