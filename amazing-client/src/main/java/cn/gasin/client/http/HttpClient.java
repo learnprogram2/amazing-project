@@ -1,8 +1,8 @@
 package cn.gasin.client.http;
 
-import cn.gasin.api.domain.Response;
-import cn.gasin.client.domain.heartbeat.HeartbeatRequest;
-import cn.gasin.client.domain.register.RegisterRequest;
+import cn.gasin.api.http.Response;
+import cn.gasin.api.http.heartbeat.HeartbeatRequest;
+import cn.gasin.api.http.register.RegisterRequest;
 
 /**
  * http client, 功能类

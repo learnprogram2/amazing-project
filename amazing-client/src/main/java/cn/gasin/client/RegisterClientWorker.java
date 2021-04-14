@@ -1,9 +1,9 @@
 package cn.gasin.client;
 
-import cn.gasin.api.domain.Response;
-import cn.gasin.api.domain.ResponseStatus;
-import cn.gasin.client.domain.heartbeat.HeartbeatRequest;
-import cn.gasin.client.domain.register.RegisterRequest;
+import cn.gasin.api.http.Response;
+import cn.gasin.api.http.ResponseStatus;
+import cn.gasin.api.http.heartbeat.HeartbeatRequest;
+import cn.gasin.api.http.register.RegisterRequest;
 import cn.gasin.client.http.HttpClient;
 import lombok.extern.log4j.Log4j2;
 

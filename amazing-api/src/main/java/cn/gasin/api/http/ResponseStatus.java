@@ -1,4 +1,4 @@
-package cn.gasin.api.domain;
+package cn.gasin.api.http;
 
 import lombok.Getter;
 

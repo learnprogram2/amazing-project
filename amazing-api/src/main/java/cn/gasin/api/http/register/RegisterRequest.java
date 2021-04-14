@@ -1,17 +1,17 @@
-package cn.gasin.client.domain.register;
+package cn.gasin.api.http.register;
 
-import cn.gasin.client.domain.RequestType;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import cn.gasin.api.http.RequestType;
+import lombok.*;
 
 
 /**
  * 注册请求, 唯一标识一个client的标识.
  */
-@Builder
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class RegisterRequest {
     RequestType requestType;
 

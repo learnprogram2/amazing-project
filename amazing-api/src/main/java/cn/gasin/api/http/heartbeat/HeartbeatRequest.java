@@ -1,8 +1,6 @@
-package cn.gasin.client.domain.heartbeat;
+package cn.gasin.api.http.heartbeat;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * 心跳请求: 只需要发送自己的坐标就好了吧~
@@ -10,6 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class HeartbeatRequest {
 
     // 服务坐标: name&id
