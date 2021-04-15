@@ -7,7 +7,31 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-//
+/*
+    Thread.class
+    每个线程都有优先级. 每个thread都可以变成daemon线程.
+    外面线程内创建的线程对象的优先级和外面线程一样. daemon也一样.
+
+    JVM起来的时候, 只有一个线程: main非守护线程.JVM执行直到:
+    1. 调用Runtime的exit, 然后securityManager允许安全退出.
+    2. 所有非守护线程都执行完了.
+
+    创建一个县城有两种方法:
+    1. 继承Thread重写run方法.
+    2. 实现Runnable接口, 继承run方法. 然后把obj作为参数创建Thread. 启动Thread.
+
+    线程都有一个名字来定位, 没指定就默认, 多个线程可以指定同一个名字.
+ */
+/*
+    ThreadGroup.class
+
+    线程组代表一组线程, 一个线程组还能包含另一个线程组.
+    多个线程组构成一个树, 每个线程组可以指定父线程组
+
+    一个线程可以拿到自己线程组的信息, 但是拿不到parent线程组或其他线程组的信息
+
+    锁机制是从下往上锁group.
+ */
 
 /**
  * check instanceInfo status, expel dead instanceInfo.
@@ -53,6 +77,8 @@ public class RegistryExpel {
                     }
                 } catch (InterruptedException e) {
                     log.warn("expel Registry thread was interrupted:{}. ", Thread.interrupted(), e);
+                    // exit this thread.
+                    return;
                 } catch (Exception e) {
                     log.error("expel Registry error:", e);
                 }
