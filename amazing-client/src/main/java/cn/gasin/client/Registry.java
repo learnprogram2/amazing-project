@@ -2,7 +2,6 @@ package cn.gasin.client;
 
 import cn.gasin.api.server.InstanceInfo;
 import cn.gasin.client.http.HttpClient;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 
@@ -14,7 +13,6 @@ import static cn.gasin.client.config.ClientConfig.REGISTRY_FETCH_INTERVAL;
  * client端的注册表
  */
 @Log4j2
-@AllArgsConstructor
 public class Registry extends Thread {
     /**
      * 注册表: Map<serviceName: Map<instanceId, RegistryInfo>>
@@ -25,6 +23,10 @@ public class Registry extends Thread {
     private final RegisterClientWorker registerClientWorker;
     private final HttpClient httpClient;
 
+    public Registry(RegisterClientWorker registerClientWorker, HttpClient httpClient) {
+        this.registerClientWorker = registerClientWorker;
+        this.httpClient = httpClient;
+    }
 
     @Override
     public void run() {
