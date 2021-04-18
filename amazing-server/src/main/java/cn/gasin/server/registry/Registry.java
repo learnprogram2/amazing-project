@@ -17,14 +17,14 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Log4j2
 @Getter
-@Service
+@Service // spring里面的单例. 不用写单例模式了.
 public class Registry {
     /**
      * 注册表: Map<serviceName: Map<instanceId, RegistryInfo>>
      */
     private final Map<String, Map<String, InstanceInfo>> registry = new ConcurrentHashMap<>();
 
-    public void register(InstanceInfo instanceInfo) {
+    public synchronized void register(InstanceInfo instanceInfo) {
         Map<String, InstanceInfo> serverMap = registry.get(instanceInfo.getServiceName());
         if (serverMap == null) {
             registry.putIfAbsent(instanceInfo.getServiceName(), new ConcurrentHashMap<>());
