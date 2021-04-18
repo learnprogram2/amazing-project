@@ -34,6 +34,8 @@ public class Registry {
         serverMap.put(instanceInfo.getInstanceId(), instanceInfo);
     }
 
+
+    /** 心跳服务接口 */
     public boolean heartbeat(HeartbeatRequest req) {
         Map<String, InstanceInfo> serviceMap = registry.get(req.getServiceName());
         if (Objects.nonNull(serviceMap) && serviceMap.containsKey(req.getInstanceId())) {
