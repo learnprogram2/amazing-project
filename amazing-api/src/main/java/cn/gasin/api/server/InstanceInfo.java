@@ -33,7 +33,8 @@ public class InstanceInfo {
      * 租约
      */
     class Lease {
-        long lastHeartbeatTime = System.currentTimeMillis();
+        // 可以保证并发间的变量更新有立即的可见性.
+        volatile long lastHeartbeatTime = System.currentTimeMillis();
 
         public void renew() {
             lastHeartbeatTime = System.currentTimeMillis();

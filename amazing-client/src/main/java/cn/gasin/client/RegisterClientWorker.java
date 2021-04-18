@@ -1,87 +1,55 @@
 package cn.gasin.client;
 
-import cn.gasin.api.http.Response;
-import cn.gasin.api.http.ResponseStatus;
-import cn.gasin.api.http.heartbeat.HeartbeatRequest;
-import cn.gasin.api.http.register.RegisterRequest;
 import cn.gasin.client.http.HttpClient;
+import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
-
-import java.util.concurrent.atomic.AtomicBoolean;
 
 
 /**
- * 这个是client组件的入口
+ * 这个是client组件的入口: registry的客户端服务入口, 可以把RegisterClientWorker看成服务的入口和总和.
  */
 @Log4j2
 public class RegisterClientWorker extends Thread {
 
-    // private static final Logger logger = LogManager.getLogger(RegisterClientWorker.class);
 
-    // config
-    String SERVICE_NAME = "demoProject";
-    String INSTANCE_ID = "instance01";
-    String INSTANCE_IP = "192.168.0.1";
-    Integer INSTANCE_PORT = 9001;
+    // 这个可以设为volatile. atomic也是维护了一个volatile的变量.
+    private volatile boolean running = true;
 
-    AtomicBoolean alive = new AtomicBoolean(true);
+    // 维护的各种服务
+    HttpClient httpClient;
 
     public static void main(String[] args) {
-        // 一旦启动了这个组件之后，他就负责在服务上干两个事情
-        // 第一个事情，就是开启一个线程向register-server去发送请求，注册这个服务
-        // 第二个事情，就是在注册成功之后，就会开启另外一个线程去发送心跳
-
-        // 我们来简化一下这个模型
-        // 我们在register-client这块就开启一个线程
-        // 这个线程刚启动的时候，第一个事情就是完成注册
-        // 如果注册完成了之后，他就会进入一个while true死循环
-        // 每隔30秒就发送一个请求去进行心跳
-
         new RegisterClientWorker().start();
     }
 
+    @SneakyThrows
     @Override
     public void run() {
         super.run();
 
         // register
-        // 1. 读取配置, 拼装注册请求
-        RegisterRequest registerRequest = RegisterRequest.builder()
-                .serviceName(SERVICE_NAME).instanceId(INSTANCE_ID)
-                .instanceIp(INSTANCE_IP).instancePort(INSTANCE_PORT).build();
-        // 2. 使用工具发送请求.
-        Response response = HttpClient.sendRegisterRequest(registerRequest);
-        if (ResponseStatus.SUCCESS.equals(response.getStatus())) {
-            log.info("register success");
-        } else {
-            // 3. 重试机制, 或者异常机制
-            log.error("register failed:{}", response.getMessage());
-            return;
-        }
-
+        Register register = new Register(httpClient);
+        register.start();
+        register.join();
 
         // heartbeat
-        while (alive.get()) {
-            // 1. 睡一小会, 发送心跳请求
-            try {
-                Thread.sleep(30 * 1000);
+        new Heartbeat(this, httpClient).start();
 
-                HeartbeatRequest heartbeatRequest =
-                        HeartbeatRequest.builder().instanceId(INSTANCE_ID).serviceName(SERVICE_NAME).build();
-                Response hbResponse = HttpClient.sendHeartbeat(heartbeatRequest);
-                if (ResponseStatus.SUCCESS.equals(hbResponse.getStatus())) {
-                    log.info("heartbeat succ: {}", System.currentTimeMillis());
-                } else {
-                    // 异常处理: 这里如果注册不成功, 要有很多事情做了
-                    log.error("heartbeat failed: {}: {}", System.currentTimeMillis(), hbResponse.getMessage());
-                }
-            } catch (InterruptedException e) {
-                log.error("sleep interrupt:{}, ", Thread.interrupted(), e);
-            }
-        }
+        // pull registry
+        new Registry(this, httpClient).start();
 
         // enable unregister request sender
-
-
     }
+
+
+    // 关闭服务.
+    public void showdown() {
+        running = false;
+    }
+
+
+    public boolean running() {
+        return running;
+    }
+
 }
