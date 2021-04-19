@@ -1,7 +1,10 @@
 package cn.gasin.server.registry;
 
 import cn.gasin.api.server.InstanceInfo;
+import cn.gasin.server.heartbeat.SelfProtectionPolicy;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,16 +40,22 @@ import java.util.Objects;
  * check instanceInfo status, expel dead instanceInfo.
  */
 @Log4j2
+@Component
 public class RegistryExpel {
-    private final Registry registry;
     private static final long INTERNAL = 60 * 1000;
     private static final Map<String, InstanceInfo> EMPTY_MAP = new HashMap<>();
 
+    // 注册表
+    @Autowired
+    private Registry registry;
+
+    // 自我保护机制
+    @Autowired
+    private SelfProtectionPolicy selfProtectionPolicy;
+
+    // 工作线程
     private DaemonThread daemonThread;
 
-    public RegistryExpel(Registry registry) {
-        this.registry = registry;
-    }
 
     public void start() throws Exception {
         if (Objects.nonNull(daemonThread)) {
@@ -64,6 +73,10 @@ public class RegistryExpel {
             while (true) {
                 try {
                     Thread.sleep(INTERNAL);
+                    // 自我保护机制.
+                    while (selfProtectionPolicy.isProtectionEnabled()) {
+                        Thread.sleep(INTERNAL);
+                    }
 
                     Map<String, Map<String, InstanceInfo>> registryMap = registry.getRegistry();
                     for (String serviceName : registryMap.keySet()) {
@@ -72,6 +85,8 @@ public class RegistryExpel {
                             if (!instance.isAlive()) {
                                 log.warn("instance [{}] is dead", instance);
                                 serviceMap.remove(instance.getInstanceId());
+                                // 更新自我保护的阈值.
+                                selfProtectionPolicy.instanceDead();
                             }
                         }
                     }

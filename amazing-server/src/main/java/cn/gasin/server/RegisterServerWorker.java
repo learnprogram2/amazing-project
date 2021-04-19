@@ -1,6 +1,5 @@
 package cn.gasin.server;
 
-import cn.gasin.server.registry.Registry;
 import cn.gasin.server.registry.RegistryExpel;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -22,7 +21,7 @@ public class RegisterServerWorker extends Thread {
         // check unlive instance
         // internal 60s, timeout 90s.
         try {
-            new RegistryExpel(context.getBean(Registry.class)).start();
+            context.getBean(RegistryExpel.class).start();
         } catch (Exception e) {
             e.printStackTrace();
         }

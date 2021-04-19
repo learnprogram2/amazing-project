@@ -5,6 +5,7 @@ import cn.gasin.api.http.heartbeat.HeartbeatRequest;
 import cn.gasin.api.http.register.RegisterRequest;
 import cn.gasin.api.server.InstanceInfo;
 import cn.gasin.server.heartbeat.HeartbeatRate;
+import cn.gasin.server.heartbeat.SelfProtectionPolicy;
 import cn.gasin.server.registry.Registry;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class RegisterController {
     private Registry registry;
     @Autowired
     private HeartbeatRate heartbeatRate;
+    @Autowired
+    private SelfProtectionPolicy selfProtectionPolicy;
 
     /**
      * 注册接口
@@ -32,6 +35,8 @@ public class RegisterController {
         // register
         InstanceInfo instanceInfo = InstanceInfo.copyFrom(req);
         registry.register(instanceInfo);
+        // 更新阈值
+        selfProtectionPolicy.instanceRegister();
 
         return Response.success(null);
     }
@@ -58,7 +63,11 @@ public class RegisterController {
     @PutMapping("/instanceOffline")
     public Response instanceOffline(@RequestBody RegisterRequest req) {
         log.info("接收到client下线请求: {}", req);
+
         if (registry.instanceOffline(req)) {
+            // 更新自我保护阈值
+            selfProtectionPolicy.instanceDead();
+
             return Response.success(null);
         }
         return Response.failed("下线失败");
