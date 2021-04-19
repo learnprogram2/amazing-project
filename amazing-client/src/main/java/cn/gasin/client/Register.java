@@ -38,4 +38,8 @@ public class Register extends Thread {
             return;
         }
     }
+
+    public void shutDown() {
+        // 什么也不用做暂时.
+    }
 }

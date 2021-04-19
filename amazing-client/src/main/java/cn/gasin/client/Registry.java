@@ -46,9 +46,15 @@ public class Registry extends Thread {
                     sleep(REGISTRY_FETCH_INTERVAL);
                 } catch (InterruptedException e) {
                     log.error("拉去注册表, sleep被唤醒.");
-                    Thread.interrupted();
+                    if (Thread.interrupted())
+                        break;
                 }
             }
         }
+    }
+
+    public void shutDown() {
+        registry = null;
+        this.interrupt();
     }
 }

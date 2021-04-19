@@ -36,6 +36,9 @@ public class Heartbeat extends Thread {
                     log.error("heartbeat failed: {}: {}", System.currentTimeMillis(), hbResponse.getMessage());
                 }
                 sleep(30 * 1000);
+            } catch (InterruptedException e) {
+                log.error("注册被中断");
+                break;
             } catch (Exception e) {
                 log.error("注册出问题了. 等会重试");
                 sleepAWhile(30 * 1000);
@@ -49,5 +52,9 @@ public class Heartbeat extends Thread {
         } catch (InterruptedException e) {
             log.error("sleep interrupt:{}, ", Thread.interrupted(), e);
         }
+    }
+
+    public void shutDown() {
+        this.interrupt();
     }
 }

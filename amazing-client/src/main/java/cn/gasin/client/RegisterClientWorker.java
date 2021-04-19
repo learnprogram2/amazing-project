@@ -17,9 +17,16 @@ public class RegisterClientWorker extends Thread {
 
     // 维护的各种服务
     HttpClient httpClient;
+    Register register;
+    Heartbeat heartbeat;
+    Registry registry;
 
     public static void main(String[] args) {
         new RegisterClientWorker().start();
+    }
+
+    public RegisterClientWorker() {
+        httpClient = new HttpClient();
     }
 
     @SneakyThrows
@@ -28,23 +35,30 @@ public class RegisterClientWorker extends Thread {
         super.run();
 
         // register
-        Register register = new Register(httpClient);
+        register = new Register(httpClient);
         register.start();
         register.join();
 
         // heartbeat
-        new Heartbeat(this, httpClient).start();
+        heartbeat = new Heartbeat(this, httpClient);
+        heartbeat.start();
 
         // pull registry
-        new Registry(this, httpClient).start();
+        registry = new Registry(this, httpClient);
+        register.start();
 
         // enable unregister request sender
     }
 
 
     // 关闭服务.
-    public void showdown() {
+    public void shutdown() {
         running = false;
+        register.shutDown();
+        heartbeat.shutDown();
+        registry.shutDown();
+        httpClient.instanceOffline();
+        httpClient.shutDown();
     }
 
 

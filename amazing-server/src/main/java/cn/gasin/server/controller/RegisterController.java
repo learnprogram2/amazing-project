@@ -6,11 +6,14 @@ import cn.gasin.api.http.register.RegisterRequest;
 import cn.gasin.api.server.InstanceInfo;
 import cn.gasin.server.heartbeat.HeartbeatRate;
 import cn.gasin.server.registry.Registry;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+@Log4j2
 @RestController("/")
 public class RegisterController {
 
@@ -49,6 +52,16 @@ public class RegisterController {
         heartbeatRate.count();
 
         return Response.success(null);
+    }
+
+    /** 下线client */
+    @PutMapping("/instanceOffline")
+    public Response instanceOffline(@RequestBody RegisterRequest req) {
+        log.info("接收到client下线请求: {}", req);
+        if (registry.instanceOffline(req)) {
+            return Response.success(null);
+        }
+        return Response.failed("下线失败");
     }
 
 

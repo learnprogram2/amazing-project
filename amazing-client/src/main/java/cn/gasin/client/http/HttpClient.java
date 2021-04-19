@@ -4,13 +4,17 @@ import cn.gasin.api.http.Response;
 import cn.gasin.api.http.heartbeat.HeartbeatRequest;
 import cn.gasin.api.http.register.RegisterRequest;
 import cn.gasin.api.server.InstanceInfo;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static cn.gasin.client.config.ClientConfig.*;
+
 /**
  * TODO http client, 功能类, 需要完善Http接口调用功能.
  */
+@Log4j2
 public class HttpClient {
     public Response sendRegisterRequest(RegisterRequest registerRequest) {
         return null;
@@ -36,5 +40,21 @@ public class HttpClient {
         serviceMap.put(instanceInfo.getInstanceId(), instanceInfo);
 
         return registry;
+    }
+
+    /** 下线client */
+    public void instanceOffline() {
+        log.info("client下线");
+        RegisterRequest registerRequest = RegisterRequest.builder()
+                .serviceName(SERVICE_NAME).instanceId(INSTANCE_ID)
+                .instanceIp(INSTANCE_IP).instancePort(INSTANCE_PORT).build();
+    }
+
+
+    // HttpClient关闭
+    public void shutDown() {
+        log.info("httpClient 销毁");
+
+        // 调用server的下线接口.
     }
 }

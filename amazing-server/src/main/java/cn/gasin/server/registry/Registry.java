@@ -1,6 +1,7 @@
 package cn.gasin.server.registry;
 
 import cn.gasin.api.http.heartbeat.HeartbeatRequest;
+import cn.gasin.api.http.register.RegisterRequest;
 import cn.gasin.api.server.InstanceInfo;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
@@ -42,6 +43,18 @@ public class Registry {
             InstanceInfo instanceInfo = serviceMap.get(req.getInstanceId()); // 一种极端的, 这里拿到的instanceInfo是null
             instanceInfo.renew();
             return true;
+        }
+        return false;
+    }
+
+    /** 下线服务 */
+    public synchronized boolean instanceOffline(RegisterRequest req) {
+        Map<String, InstanceInfo> serviceMap = registry.get(req.getServiceName());
+        if (Objects.nonNull(serviceMap) && serviceMap.containsKey(req.getInstanceId())) {
+            if (serviceMap.containsKey(req.getInstanceId())) {
+                serviceMap.remove(req.getInstanceId());
+                return true;
+            }
         }
         return false;
     }
