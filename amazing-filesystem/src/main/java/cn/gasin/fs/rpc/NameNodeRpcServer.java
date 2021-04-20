@@ -25,7 +25,7 @@ public class NameNodeRpcServer {
      *
      * @param path: the path of the new directory.
      */
-    public Boolean mkdir(String path) {
+    public Boolean mkdir(String path) throws Exception {
         return fsNameSystem.mkdir(path);
     }
 }

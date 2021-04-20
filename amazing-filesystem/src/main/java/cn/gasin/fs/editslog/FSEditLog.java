@@ -1,8 +1,8 @@
 package cn.gasin.fs.editslog;
 
 /**
- * FSEditLog maintains a log of the namespace modifications.
  * maintain edit-log.
+ * 专门负责管理写入edits log到磁盘文件里去
  */
 public class FSEditLog {
     /**

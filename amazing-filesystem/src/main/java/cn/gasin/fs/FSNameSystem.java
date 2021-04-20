@@ -25,8 +25,14 @@ public class FSNameSystem {
      * @param path path of the new directory
      */
     public Boolean mkdir(String path) {
-        fsDirectory.mkdir(path);
-        fsEditLog.logEdit("mkdir:" + path);
-        return true;
+        path = path.trim();
+        try {
+            fsDirectory.mkdir(path);
+            fsEditLog.logEdit("mkdir:" + path);
+            return true;
+        } catch (Exception e) {
+            // todo 回退
+            return false;
+        }
     }
 }
