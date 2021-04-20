@@ -3,7 +3,6 @@ package cn.gasin.fs.editslog;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * 内存的缓冲区: 准备两块缓冲, 交替着来.
@@ -12,8 +11,8 @@ import java.util.List;
 @Log4j2
 public class DoubleBuffer {
 
-    List<EditLog> currentBuffer;
-    List<EditLog> syncBuffer;
+    LinkedList<EditLog> currentBuffer;
+    LinkedList<EditLog> syncBuffer;
 
     public DoubleBuffer() {
         currentBuffer = new LinkedList<>();
@@ -29,7 +28,7 @@ public class DoubleBuffer {
      * FIXME: 两个缓冲的交换, 有并发问题, 还没有解决.
      */
     public void readyToSync() {
-        List<EditLog> temp = currentBuffer;
+        LinkedList<EditLog> temp = currentBuffer;
         currentBuffer = syncBuffer;
         syncBuffer = temp;
     }
@@ -44,5 +43,9 @@ public class DoubleBuffer {
         }
         syncBuffer.clear();
         log.info("flush success");
+    }
+
+    public Long getSyncBufferLatest() {
+        return syncBuffer.getLast() == null ? null : syncBuffer.getLast().getTxid();
     }
 }
