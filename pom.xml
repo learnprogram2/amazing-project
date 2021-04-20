@@ -12,6 +12,7 @@
         <module>amazing-client</module>
         <module>amazing-server</module>
         <module>amazing-api</module>
+        <module>amazing-filesystem</module>
     </modules>
 
     <properties>
