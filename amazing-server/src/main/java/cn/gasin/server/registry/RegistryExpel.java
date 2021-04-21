@@ -66,6 +66,10 @@ public class RegistryExpel {
         daemonThread.start();
     }
 
+    /**
+     * note: 不可以擅自拿出registry的map乱用,
+     * 可能会有并发问题: ConcurrentModificationException. (虽然ConcurrentHashMap没有, 但是不能违背编程原则.)
+     */
     class DaemonThread extends Thread {
 
         //开始工作, 驱逐过期的instanceInfo
@@ -77,14 +81,15 @@ public class RegistryExpel {
                     while (selfProtectionPolicy.isProtectionEnabled()) {
                         Thread.sleep(INTERNAL);
                     }
-
-                    Map<String, Map<String, InstanceInfo>> registryMap = registry.getRegistry();
-                    for (String serviceName : registryMap.keySet()) {
-                        Map<String, InstanceInfo> serviceMap = registryMap.getOrDefault(serviceName, EMPTY_MAP);
+                    // 优化: 这里暂时拷贝出来一份, 不要用人家的操作
+                    Map<String, Map<String, InstanceInfo>> registryMapCopy = registry.getRegistryCopy();
+                    for (String serviceName : registryMapCopy.keySet()) {
+                        Map<String, InstanceInfo> serviceMap = registryMapCopy.getOrDefault(serviceName, EMPTY_MAP);
                         for (InstanceInfo instance : serviceMap.values()) {
                             if (!instance.isAlive()) {
                                 log.warn("instance [{}] is dead", instance);
-                                serviceMap.remove(instance.getInstanceId());
+                                // ERROR: serviceMap.remove(instance.getInstanceId());, 不能随便操作.这里不能自己删除, 要通知registry删除
+                                registry.expel(instance);
                                 // 更新自我保护的阈值.
                                 selfProtectionPolicy.instanceDead();
                             }

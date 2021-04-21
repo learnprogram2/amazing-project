@@ -1,11 +1,13 @@
 package cn.gasin.server.heartbeat;
 
+import org.springframework.stereotype.Component;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 心跳计数服务:
- * FIXME: 暂时用synchronized来控制并发问题
  */
+@Component
 public class HeartbeatRate {
     //    这个实现没有考虑一分钟内没有心跳得时候, 如果没有的话, count就没有意义了.
     //    private int lastMinuteCount;
@@ -18,9 +20,9 @@ public class HeartbeatRate {
     //        }
     //        lastMinuteCount++;
     //    }
-    private long currentMinuteStartTimestamp;
-    private AtomicInteger currentMinuteCount;
-    private AtomicInteger lastMinuteCount;
+    private long currentMinuteStartTimestamp = System.currentTimeMillis();
+    private AtomicInteger currentMinuteCount = new AtomicInteger(0);
+    private AtomicInteger lastMinuteCount = new AtomicInteger(0);
 
     public void count() {
         newMinute();
@@ -36,14 +38,12 @@ public class HeartbeatRate {
         return lastMinuteCount.get();
     }
 
-    private void newMinute() {
+    private synchronized void newMinute() {
         if (System.currentTimeMillis() - currentMinuteStartTimestamp >= 60 * 1000) {
             // 这一段更新的, 有可能有并发问题:
-            synchronized (this) {
-                lastMinuteCount.set(currentMinuteCount.intValue());
-                currentMinuteCount.set(0);
-                currentMinuteStartTimestamp = System.currentTimeMillis();
-            }
+            lastMinuteCount.set(currentMinuteCount.intValue());
+            currentMinuteCount.set(0);
+            currentMinuteStartTimestamp = System.currentTimeMillis();
         }
     }
 
