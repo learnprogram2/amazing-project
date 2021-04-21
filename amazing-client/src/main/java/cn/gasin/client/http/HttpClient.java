@@ -4,9 +4,12 @@ import cn.gasin.api.http.Response;
 import cn.gasin.api.http.heartbeat.HeartbeatRequest;
 import cn.gasin.api.http.register.RegisterRequest;
 import cn.gasin.api.server.InstanceInfo;
+import cn.gasin.api.server.InstanceInfoChangedHolder;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import static cn.gasin.client.config.ClientConfig.*;
@@ -56,5 +59,10 @@ public class HttpClient {
         log.info("httpClient 销毁");
 
         // 调用server的下线接口.
+    }
+
+    /** TODO: 拉取增量注册表, 待实现哈 */
+    public List<InstanceInfoChangedHolder> fetchDeltaRegistry() {
+        return new LinkedList<>();
     }
 }
