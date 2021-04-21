@@ -2,6 +2,7 @@ package cn.gasin.client;
 
 import cn.gasin.api.server.InstanceInfo;
 import cn.gasin.api.server.InstanceInfoChangedHolder;
+import cn.gasin.api.server.InstanceInfoOperation;
 import cn.gasin.client.http.HttpClient;
 import lombok.extern.log4j.Log4j2;
 
@@ -69,24 +70,32 @@ public class Registry extends Thread {
             return;
         }
 
+        // todo: 这里要判断更新的时间, 不能老的把新的替换掉了.
         while (fetchDeltaRegistry.size() > 0) {
             for (InstanceInfoChangedHolder infoChangedHolder : fetchDeltaRegistry) {
                 InstanceInfo instanceInfo = infoChangedHolder.getInstanceInfo();
                 // 新服务直接加进去
-                if (!registry.containsKey(instanceInfo.getServiceName())) {
-                    Map<String, InstanceInfo> serviceMap = new HashMap<>();
-                    serviceMap.put(instanceInfo.getInstanceId(), instanceInfo);
-                    registry.put(instanceInfo.getServiceName(), serviceMap);
-                    continue;
-                }
-                Map<String, InstanceInfo> serviceMap = registry.get(instanceInfo.getServiceName());
-                if (!serviceMap.containsKey(instanceInfo.getInstanceId())) {
-                    serviceMap.put(instanceInfo.getInstanceId(), instanceInfo);
-                } else {
-                    InstanceInfo contained = serviceMap.get(instanceInfo.getInstanceId());
-                    if (!contained.equals(instanceInfo)) {
-                        // todo: 这里要判断更新的时间, 不能老的把新的替换掉了.
+                if (infoChangedHolder.getInstanceInfoOperation().equals(InstanceInfoOperation.REGISTER)) {
+                    if (!registry.containsKey(instanceInfo.getServiceName())) {
+                        Map<String, InstanceInfo> serviceMap = new HashMap<>();
                         serviceMap.put(instanceInfo.getInstanceId(), instanceInfo);
+                        registry.put(instanceInfo.getServiceName(), serviceMap);
+                        continue;
+                    }
+                    Map<String, InstanceInfo> serviceMap = registry.get(instanceInfo.getServiceName());
+                    if (!serviceMap.containsKey(instanceInfo.getInstanceId())) {
+                        serviceMap.put(instanceInfo.getInstanceId(), instanceInfo);
+                    } else {
+                        InstanceInfo contained = serviceMap.get(instanceInfo.getInstanceId());
+                        if (!contained.equals(instanceInfo)) {
+                            serviceMap.put(instanceInfo.getInstanceId(), instanceInfo);
+                        }
+                    }
+                } else if (infoChangedHolder.getInstanceInfoOperation().equals(InstanceInfoOperation.EXPELLED)
+                        || infoChangedHolder.getInstanceInfoOperation().equals(InstanceInfoOperation.OFFLINE)) {
+                    Map<String, InstanceInfo> serviceMap = registry.get(instanceInfo.getServiceName());
+                    if (serviceMap != null) {
+                        serviceMap.remove(instanceInfo.getInstanceId());
                     }
                 }
             }
