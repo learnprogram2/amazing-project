@@ -2,17 +2,16 @@ package cn.gasin.server.controller;
 
 import cn.gasin.api.http.Response;
 import cn.gasin.api.http.heartbeat.HeartbeatRequest;
+import cn.gasin.api.http.register.QueryRegistryResponse;
 import cn.gasin.api.http.register.RegisterRequest;
 import cn.gasin.api.server.InstanceInfo;
 import cn.gasin.server.heartbeat.HeartbeatRate;
 import cn.gasin.server.heartbeat.SelfProtectionPolicy;
 import cn.gasin.server.registry.Registry;
+import cn.gasin.server.registry.RegistryUpdatesCache;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Log4j2
 @RestController("/")
@@ -20,6 +19,8 @@ public class RegisterController {
 
     @Autowired
     private Registry registry;
+    @Autowired
+    private RegistryUpdatesCache registryUpdatesCache;
     @Autowired
     private HeartbeatRate heartbeatRate;
     @Autowired
@@ -71,6 +72,22 @@ public class RegisterController {
             return Response.success(null);
         }
         return Response.failed("下线失败");
+    }
+
+    /** 拿全量注册表 */
+    @GetMapping("/registry")
+    public QueryRegistryResponse getAllRegistry() {
+        QueryRegistryResponse response = QueryRegistryResponse.success(null);
+        response.setInstanceInfoMap(registry.getRegistryCopy());
+        return response;
+    }
+
+    /** 拿增量注册表 */
+    @GetMapping("/registry/delta")
+    public QueryRegistryResponse getDeltaRegistry() {
+        QueryRegistryResponse response = QueryRegistryResponse.success(null);
+        response.setDeltaInstanceInfoList(registryUpdatesCache.getRecentlyChangedQueue());
+        return response;
     }
 
 

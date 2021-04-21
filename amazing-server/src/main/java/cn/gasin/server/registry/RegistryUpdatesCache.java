@@ -4,6 +4,7 @@ import cn.gasin.api.server.InstanceInfo;
 import cn.gasin.api.server.InstanceInfoChangedHolder;
 import cn.gasin.api.server.InstanceInfoOperation;
 import cn.gasin.api.server.config.ServiceConfig;
+import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,11 @@ import static cn.gasin.api.server.config.ServiceConfig.REGISTRY_UPDATES_CACHE_EX
 @Component
 public class RegistryUpdatesCache {
 
+    /**
+     * 这个list修改的时候也有并发问题, 但是, 这个数据不是很重要. 而且这个list的修改很集中, 大多数都是读取.
+     * TODO: 这个队列里面没有去重
+     */
+    @Getter
     private final LinkedList<InstanceInfoChangedHolder> recentlyChangedQueue = new LinkedList<>();
 
     private CacheUpdateDaemon cacheUpdateDaemon;
@@ -32,8 +38,10 @@ public class RegistryUpdatesCache {
      * 缓存一个刚刚更新的instance, 更新的操作是operation
      */
     public void cache(InstanceInfo instanceInfo, InstanceInfoOperation operation) {
-        InstanceInfoChangedHolder infoChangedHolder = new InstanceInfoChangedHolder(instanceInfo, operation);
-        recentlyChangedQueue.offer(infoChangedHolder);
+        synchronized (recentlyChangedQueue) {
+            InstanceInfoChangedHolder infoChangedHolder = new InstanceInfoChangedHolder(instanceInfo, operation);
+            recentlyChangedQueue.offer(infoChangedHolder);
+        }
     }
 
     /**
@@ -52,15 +60,17 @@ public class RegistryUpdatesCache {
                     Thread.sleep(ServiceConfig.REGISTRY_UPDATES_CACHE_DAEMON_INTERNAL);
                     long timestamp = System.currentTimeMillis();
 
-                    while (recentlyChangedQueue.size() > 0) {
-                        InstanceInfoChangedHolder infoChangedHolder = recentlyChangedQueue.peek();
-                        // 如果没有过期的cache, 就下次循环了.
-                        if (Objects.isNull(infoChangedHolder) ||
-                                timestamp - infoChangedHolder.getTimestamp() < REGISTRY_UPDATES_CACHE_EXPIRE_INTERNAL) {
-                            continue;
+                    synchronized (recentlyChangedQueue) {
+                        while (recentlyChangedQueue.size() > 0) {
+                            InstanceInfoChangedHolder infoChangedHolder = recentlyChangedQueue.peek();
+                            // 如果没有过期的cache, 就下次循环了.
+                            if (Objects.isNull(infoChangedHolder) ||
+                                    timestamp - infoChangedHolder.getTimestamp() < REGISTRY_UPDATES_CACHE_EXPIRE_INTERNAL) {
+                                continue;
+                            }
+                            // 把过期的缓存干掉
+                            recentlyChangedQueue.poll();
                         }
-                        // 把过期的缓存干掉
-                        recentlyChangedQueue.poll();
                     }
                 } catch (InterruptedException e) {
                     log.info("CacheUpdateDaemon was interrupted, exit");
