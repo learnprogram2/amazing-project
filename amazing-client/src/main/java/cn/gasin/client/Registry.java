@@ -22,6 +22,9 @@ public class Registry extends Thread {
      * 注册表: Map<serviceName: Map<instanceId, RegistryInfo>>
      */
     private Map<String, Map<String, InstanceInfo>> registry;
+    // 优化一: 把registry包装到一个obj里面, 用AtomicReference, 这个优化不做, 太麻烦, 而且并发量不高.
+    // 优化二: 使用AtomicStampedReference来避免ABA问题, 这个就有点扯了.
+    // 问题是: 就算是用了atomicReference也不能避免这个map的并发操作不出问题啊.
 
     private final RegisterClientWorker registerClientWorker;
     private final HttpClient httpClient;
