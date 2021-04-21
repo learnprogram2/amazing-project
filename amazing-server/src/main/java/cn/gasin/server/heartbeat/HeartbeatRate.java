@@ -1,5 +1,7 @@
 package cn.gasin.server.heartbeat;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * 心跳计数服务:
  * FIXME: 暂时用synchronized来控制并发问题
@@ -16,26 +18,32 @@ public class HeartbeatRate {
     //        }
     //        lastMinuteCount++;
     //    }
-    private int lastMinuteCount;
     private long currentMinuteStartTimestamp;
-    private int currentMinuteCount;
+    private AtomicInteger currentMinuteCount;
+    private AtomicInteger lastMinuteCount;
 
-    public synchronized void count() {
-        newMimute();
-        currentMinuteCount++;
+    public void count() {
+        newMinute();
+        currentMinuteCount.incrementAndGet();
     }
 
-    /** 拿到最近完整的一分钟内的计数: 距离当下可能是0-59s */
-    public synchronized int getLastMinuteCount() {
-        newMimute();
-        return lastMinuteCount;
+    /**
+     * 拿到最近完整的一分钟内的计数: 距离当下可能是0-59s
+     * 原来的synchronized锁, 其实性能不差, 而且就是一个心跳计数, 能有多少个实例? 1w个, 每分钟约2w请求, 并发就算500qps, 这个计数快到1ms就执行完了.
+     */
+    public int getLastMinuteCount() {
+        newMinute();
+        return lastMinuteCount.get();
     }
 
-    private void newMimute() {
+    private void newMinute() {
         if (System.currentTimeMillis() - currentMinuteStartTimestamp >= 60 * 1000) {
-            lastMinuteCount = currentMinuteCount;
-            currentMinuteCount = 0;
-            currentMinuteStartTimestamp = System.currentTimeMillis();
+            // 这一段更新的, 有可能有并发问题:
+            synchronized (this) {
+                lastMinuteCount.set(currentMinuteCount.intValue());
+                currentMinuteCount.set(0);
+                currentMinuteStartTimestamp = System.currentTimeMillis();
+            }
         }
     }
 
