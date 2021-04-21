@@ -87,6 +87,7 @@ public class RegisterController {
     public QueryRegistryResponse getDeltaRegistry() {
         QueryRegistryResponse response = QueryRegistryResponse.success(null);
         response.setDeltaInstanceInfoList(registryUpdatesCache.getRecentlyChangedQueue());
+        response.setInstanceCount(registry.getInstanceCount());
         return response;
     }
 

@@ -8,6 +8,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -96,5 +97,17 @@ public class Registry {
                 registryUpdatesCache.cache(instanceInfo, InstanceInfoOperation.EXPELLED);
             }
         }
+    }
+
+    /**
+     * 虽然不是修改, 但是遍历也要防止别的线程修改抛异常
+     */
+    public synchronized Integer getInstanceCount() {
+        int count = 0;
+        Collection<Map<String, InstanceInfo>> values = registry.values();
+        for (Map<String, InstanceInfo> value : values) {
+            count += value.size();
+        }
+        return count;
     }
 }

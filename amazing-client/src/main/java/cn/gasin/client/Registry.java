@@ -1,5 +1,6 @@
 package cn.gasin.client;
 
+import cn.gasin.api.http.register.QueryRegistryResponse;
 import cn.gasin.api.server.InstanceInfo;
 import cn.gasin.api.server.InstanceInfoChangedHolder;
 import cn.gasin.api.server.InstanceInfoOperation;
@@ -47,8 +48,17 @@ public class Registry extends Thread {
             try {
                 synchronized (registry) {
                     // 直接拿来替换, 暂时不过滤啊做别的处理.
-                    mergeIntoRegistry(httpClient.fetchDeltaRegistry());
+                    QueryRegistryResponse deltaResponse = httpClient.fetchDeltaRegistry();
+                    mergeIntoRegistry(deltaResponse.getDeltaInstanceInfoList());
                     log.info("fetch registry success, contains [{}] service.", registry.size());
+                    // 优化: 校验 merge的对不对
+                    int clientInstanceCount = 0;
+                    for (Map<String, InstanceInfo> value : registry.values()) {
+                        clientInstanceCount += value.size();
+                    }
+                    if (deltaResponse.getInstanceCount() != clientInstanceCount) {
+                        registry = httpClient.fetchRegistry();
+                    }
                 }
             } catch (Exception e) {
                 log.error("拉去注册表失败", e);

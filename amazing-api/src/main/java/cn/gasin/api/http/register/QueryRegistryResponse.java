@@ -15,8 +15,9 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class QueryRegistryResponse extends Response {
-    List<InstanceInfoChangedHolder> deltaInstanceInfoList;
-    Map<String, Map<String, InstanceInfo>> instanceInfoMap;
+    private List<InstanceInfoChangedHolder> deltaInstanceInfoList;
+    private Map<String, Map<String, InstanceInfo>> instanceInfoMap;
+    private Integer instanceCount;
 
 
     public static QueryRegistryResponse success(String message) {
