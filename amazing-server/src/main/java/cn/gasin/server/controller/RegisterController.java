@@ -8,7 +8,7 @@ import cn.gasin.api.server.InstanceInfo;
 import cn.gasin.server.heartbeat.HeartbeatRate;
 import cn.gasin.server.heartbeat.SelfProtectionPolicy;
 import cn.gasin.server.registry.Registry;
-import cn.gasin.server.registry.RegistryUpdatesCache;
+import cn.gasin.server.registry.RegistryUpdatesQueue;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,7 @@ public class RegisterController {
     @Autowired
     private Registry registry;
     @Autowired
-    private RegistryUpdatesCache registryUpdatesCache;
+    private RegistryUpdatesQueue registryUpdatesQueue;
     @Autowired
     private HeartbeatRate heartbeatRate;
     @Autowired
@@ -86,7 +86,7 @@ public class RegisterController {
     @GetMapping("/registry/delta")
     public QueryRegistryResponse getDeltaRegistry() {
         QueryRegistryResponse response = QueryRegistryResponse.success(null);
-        response.setDeltaInstanceInfoList(registryUpdatesCache.getRecentlyChangedQueue());
+        response.setDeltaInstanceInfoList(registryUpdatesQueue.getRecentlyChangedQueue());
         response.setInstanceCount(registry.getInstanceCount());
         return response;
     }

@@ -18,7 +18,7 @@ import static cn.gasin.api.server.config.ServiceConfig.REGISTRY_UPDATES_CACHE_EX
  */
 @Log4j2
 @Component
-public class RegistryUpdatesCache {
+public class RegistryUpdatesQueue {
 
     /**
      * 这个list修改的时候也有并发问题, 但是, 这个数据不是很重要. 而且这个list的修改很集中, 大多数都是读取.
@@ -27,17 +27,17 @@ public class RegistryUpdatesCache {
     @Getter
     private final LinkedList<InstanceInfoChangedHolder> recentlyChangedQueue = new LinkedList<>();
 
-    private CacheUpdateDaemon cacheUpdateDaemon;
+    private UpdatesExpelDaemon updatesExpelDaemon;
 
-    public RegistryUpdatesCache() {
-        this.cacheUpdateDaemon = new CacheUpdateDaemon();
-        cacheUpdateDaemon.start();
+    public RegistryUpdatesQueue() {
+        this.updatesExpelDaemon = new UpdatesExpelDaemon();
+        updatesExpelDaemon.start();
     }
 
     /**
      * 缓存一个刚刚更新的instance, 更新的操作是operation
      */
-    public void cache(InstanceInfo instanceInfo, InstanceInfoOperation operation) {
+    public void offer(InstanceInfo instanceInfo, InstanceInfoOperation operation) {
         synchronized (recentlyChangedQueue) {
             InstanceInfoChangedHolder infoChangedHolder = new InstanceInfoChangedHolder(instanceInfo, operation);
             recentlyChangedQueue.offer(infoChangedHolder);
@@ -48,8 +48,8 @@ public class RegistryUpdatesCache {
      * > 一旦启动线程，便不必保留对 Thread 对象的引用。 线程将继续执行，直到该线程过程完成.
      * 所以必须关掉/设置成守护线程
      */
-    class CacheUpdateDaemon extends Thread {
-        public CacheUpdateDaemon() {
+    class UpdatesExpelDaemon extends Thread {
+        public UpdatesExpelDaemon() {
             this.setDaemon(true);
         }
 
@@ -73,7 +73,7 @@ public class RegistryUpdatesCache {
                         }
                     }
                 } catch (InterruptedException e) {
-                    log.info("CacheUpdateDaemon was interrupted, exit");
+                    log.info("UpdatesExpelDaemon was interrupted, exit");
                     return;
                 } catch (Exception e) {
                     log.error(e);

@@ -39,7 +39,7 @@ public class Registry {
 
 
     @Autowired
-    private RegistryUpdatesCache registryUpdatesCache;
+    private RegistryUpdatesQueue registryUpdatesQueue;
 
     /**
      * 拿到一份拷贝.
@@ -66,7 +66,7 @@ public class Registry {
             // put
             serverMap.put(instanceInfo.getInstanceId(), instanceInfo);
 
-            registryUpdatesCache.cache(instanceInfo, InstanceInfoOperation.REGISTER);
+            registryUpdatesQueue.offer(instanceInfo, InstanceInfoOperation.REGISTER);
         } finally {
             writeLock.unlock();
         }
@@ -98,7 +98,7 @@ public class Registry {
                     // 1. 下线
                     InstanceInfo instanceInfo = serviceMap.remove(req.getInstanceId());
                     // 2. 更新缓存
-                    registryUpdatesCache.cache(instanceInfo, InstanceInfoOperation.OFFLINE);
+                    registryUpdatesQueue.offer(instanceInfo, InstanceInfoOperation.OFFLINE);
                     return true;
                 }
             }
@@ -120,7 +120,7 @@ public class Registry {
                     // 1. 驱逐
                     InstanceInfo instanceInfo = serviceMap.remove(instance.getInstanceId());
                     // 2. 更新缓存
-                    registryUpdatesCache.cache(instanceInfo, InstanceInfoOperation.EXPELLED);
+                    registryUpdatesQueue.offer(instanceInfo, InstanceInfoOperation.EXPELLED);
                 }
             }
         } finally {
