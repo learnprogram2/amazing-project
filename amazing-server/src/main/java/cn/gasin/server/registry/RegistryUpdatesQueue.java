@@ -4,12 +4,12 @@ import cn.gasin.api.server.InstanceInfo;
 import cn.gasin.api.server.InstanceInfoChangedHolder;
 import cn.gasin.api.server.InstanceInfoOperation;
 import cn.gasin.api.server.config.ServiceConfig;
-import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.Objects;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import static cn.gasin.api.server.config.ServiceConfig.REGISTRY_UPDATES_CACHE_EXPIRE_INTERNAL;
 
@@ -24,8 +24,11 @@ public class RegistryUpdatesQueue {
      * 这个list修改的时候也有并发问题, 但是, 这个数据不是很重要. 而且这个list的修改很集中, 大多数都是读取.
      * TODO: 这个队列里面没有去重
      */
-    @Getter
     private final LinkedList<InstanceInfoChangedHolder> recentlyChangedQueue = new LinkedList<>();
+
+    private final ReentrantReadWriteLock rwLock = new ReentrantReadWriteLock();
+    private final ReentrantReadWriteLock.ReadLock rLock = rwLock.readLock();
+    private final ReentrantReadWriteLock.WriteLock wLock = rwLock.writeLock();
 
     private UpdatesExpelDaemon updatesExpelDaemon;
 
@@ -38,9 +41,21 @@ public class RegistryUpdatesQueue {
      * 缓存一个刚刚更新的instance, 更新的操作是operation
      */
     public void offer(InstanceInfo instanceInfo, InstanceInfoOperation operation) {
-        synchronized (recentlyChangedQueue) {
-            InstanceInfoChangedHolder infoChangedHolder = new InstanceInfoChangedHolder(instanceInfo, operation);
+        InstanceInfoChangedHolder infoChangedHolder = new InstanceInfoChangedHolder(instanceInfo, operation);
+        try {
+            wLock.lock();
             recentlyChangedQueue.offer(infoChangedHolder);
+        } finally {
+            wLock.unlock();
+        }
+    }
+
+    public LinkedList<InstanceInfoChangedHolder> getRecentlyChangedQueueCopy() {
+        try {
+            rLock.lock();
+            return new LinkedList<>(recentlyChangedQueue);
+        } finally {
+            rLock.unlock();
         }
     }
 
@@ -60,7 +75,8 @@ public class RegistryUpdatesQueue {
                     Thread.sleep(ServiceConfig.REGISTRY_UPDATES_CACHE_DAEMON_INTERNAL);
                     long timestamp = System.currentTimeMillis();
 
-                    synchronized (recentlyChangedQueue) {
+                    try {
+                        wLock.lock();
                         while (recentlyChangedQueue.size() > 0) {
                             InstanceInfoChangedHolder infoChangedHolder = recentlyChangedQueue.peek();
                             // 如果没有过期的cache, 就下次循环了.
@@ -71,6 +87,8 @@ public class RegistryUpdatesQueue {
                             // 把过期的缓存干掉
                             recentlyChangedQueue.poll();
                         }
+                    } finally {
+                        wLock.unlock();
                     }
                 } catch (InterruptedException e) {
                     log.info("UpdatesExpelDaemon was interrupted, exit");
