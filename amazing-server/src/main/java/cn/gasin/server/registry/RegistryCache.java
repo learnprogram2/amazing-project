@@ -51,12 +51,14 @@ public class RegistryCache {
 
     public Object get(String cacheKey) {
         Object cacheValue = null;
-        try {
-            rLockForRCache.lock();
-            // read cache里面为null, 就更新read-write cache, 然后从rwCache里拿一份给read cache.
-            cacheValue = rCache.get(cacheKey);
-            if (cacheValue == null) {
-                synchronized (lockForRwCache) {
+
+        // read cache里面为null, 就更新read-write cache, 然后从rwCache里拿一份给read cache.
+        cacheValue = rCache.get(cacheKey);
+        if (cacheValue == null) {
+            synchronized (lockForRwCache) {
+                try {
+                    rLockForRCache.lock();
+
                     if (rCache.get(cacheKey) == null) {
                         if (FULL_REGISTRY.equals(cacheKey)) {
                             cacheValue = registry.getRegistryCopy();
@@ -66,11 +68,12 @@ public class RegistryCache {
                         rwCache.put(cacheKey, cacheValue);
                     }
                     rCache.put(cacheKey, cacheValue);
+                } finally {
+                    rLockForRCache.unlock();
                 }
             }
-        } finally {
-            rLockForRCache.unlock();
         }
+
         return cacheValue;
     }
 
