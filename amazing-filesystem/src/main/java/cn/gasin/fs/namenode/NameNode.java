@@ -1,7 +1,7 @@
-package cn.gasin.fs;
+package cn.gasin.fs.namenode;
 
 
-import cn.gasin.fs.rpc.NameNodeRpcServer;
+import cn.gasin.fs.namenode.rpc.NameNodeRpcServer;
 import lombok.extern.log4j.Log4j2;
 
 /**

@@ -1,4 +1,4 @@
-package cn.gasin.fs.directory.model;
+package cn.gasin.fs.namenode.directory.model;
 
 import lombok.Getter;
 

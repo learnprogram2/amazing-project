@@ -1,7 +1,7 @@
-package cn.gasin.fs;
+package cn.gasin.fs.namenode;
 
-import cn.gasin.fs.directory.FSDirectory;
-import cn.gasin.fs.editslog.FSEditLog;
+import cn.gasin.fs.namenode.directory.FSDirectory;
+import cn.gasin.fs.namenode.editslog.FSEditLog;
 import lombok.extern.log4j.Log4j2;
 
 /**

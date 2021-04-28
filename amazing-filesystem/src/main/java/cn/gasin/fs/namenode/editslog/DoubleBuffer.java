@@ -1,4 +1,4 @@
-package cn.gasin.fs.editslog;
+package cn.gasin.fs.namenode.editslog;
 
 import lombok.extern.log4j.Log4j2;
 
