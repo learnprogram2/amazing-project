@@ -2,6 +2,7 @@ package cn.gasin.fs.datanode;
 
 import lombok.extern.log4j.Log4j2;
 
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -17,11 +18,15 @@ public class NameNodeGroupOfferService {
     // 和standby-nameNode通讯的actor组件
     private NameNodeServiceActor standbyServiceActor;
 
+    private List<NameNodeServiceActor> serviceActorList;
+
 
     public NameNodeGroupOfferService() {
         activeServiceActor = new NameNodeServiceActor();
         standbyServiceActor = new NameNodeServiceActor();
         shouldRun = true;
+        serviceActorList.add(activeServiceActor);
+        serviceActorList.add(standbyServiceActor);
     }
 
     /** 启动对NameNode的通讯服务 */
@@ -34,6 +39,9 @@ public class NameNodeGroupOfferService {
 
     public void stop() {
         shouldRun = false;
+        for (NameNodeServiceActor nameNodeServiceActor : serviceActorList) {
+            nameNodeServiceActor.stop();
+        }
     }
 
     private boolean register() {

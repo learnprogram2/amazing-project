@@ -26,4 +26,8 @@ public class NameNodeServiceActor {
         });
         registerRes.whenComplete((unused, throwable) -> countDownLatch.countDown());
     }
+
+    public void stop() {
+
+    }
 }
