@@ -1,6 +1,6 @@
 package cn.gasin.api.http.register;
 
-import cn.gasin.api.http.RequestType;
+import cn.gasin.api.http.BaseClientRequest;
 import lombok.*;
 
 
@@ -12,16 +12,31 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterRequest {
-    RequestType requestType;
-
-    // 服务坐标: name&id
-    String serviceName;
-    String instanceId; // 这个instanceID, 我觉得就把hostName和instanceID结合在一起了吧~ 还需要hostName干什么呢?
-    // String hostName; 暂时不需要这个定位了.
+public class RegisterRequest extends BaseClientRequest {
 
     // 地址坐标: instance address
     String instanceIp;
     Integer instancePort;
+
+    public RegisterRequest setServiceName(String serviceName) {
+        setServiceName(serviceName);
+        return this;
+    }
+
+    public RegisterRequest setInstanceId(String instanceId) {
+        setInstanceId(instanceId);
+        return this;
+    }
+
+    public RegisterRequest setInstanceIp(String instanceIp) {
+        setInstanceIp(instanceIp);
+        return this;
+    }
+
+    public RegisterRequest setInstancePort(Integer instancePort) {
+        setInstancePort(instancePort);
+        return this;
+    }
+
 
 }

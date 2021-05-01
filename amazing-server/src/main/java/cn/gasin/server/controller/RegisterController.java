@@ -6,6 +6,7 @@ import cn.gasin.api.http.register.QueryRegistryResponse;
 import cn.gasin.api.http.register.RegisterRequest;
 import cn.gasin.api.server.InstanceInfo;
 import cn.gasin.api.server.InstanceInfoChangedHolder;
+import cn.gasin.server.cluster.PeersReplicator;
 import cn.gasin.server.heartbeat.HeartbeatRate;
 import cn.gasin.server.heartbeat.SelfProtectionPolicy;
 import cn.gasin.server.registry.Registry;
@@ -30,6 +31,11 @@ public class RegisterController {
     @Autowired
     private RegistryCache registryCache;
 
+    /** cluster 同步的组件 */
+    @Autowired
+    private PeersReplicator peersReplicator;
+
+
     /**
      * 注册接口
      *
@@ -44,6 +50,9 @@ public class RegisterController {
         selfProtectionPolicy.instanceRegister();
         // 更新缓存
         registryCache.invalidRwCache();
+        // 集群同步
+        peersReplicator.replicateRegister(req);
+
 
         return Response.success(null);
     }
@@ -63,6 +72,10 @@ public class RegisterController {
         // 心跳成功, 计数
         heartbeatRate.count();
 
+        // 集群同步
+        peersReplicator.replicateHeartbeat(req);
+
+
         return Response.success(null);
     }
 
@@ -76,6 +89,8 @@ public class RegisterController {
             selfProtectionPolicy.instanceDead();
             // 更新缓存
             registryCache.invalidRwCache();
+            // 集群同步
+            peersReplicator.replicateOffline(req);
 
             return Response.success(null);
         }

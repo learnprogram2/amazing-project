@@ -25,9 +25,9 @@ public class Register extends Thread {
         super.run();
 
         // 1. 读取配置, 拼装注册请求
-        RegisterRequest registerRequest = RegisterRequest.builder()
-                .serviceName(SERVICE_NAME).instanceId(INSTANCE_ID)
-                .instanceIp(INSTANCE_IP).instancePort(INSTANCE_PORT).build();
+        RegisterRequest registerRequest = new RegisterRequest()
+                .setServiceName(SERVICE_NAME).setInstanceId(INSTANCE_ID)
+                .setInstanceIp(INSTANCE_IP).setInstancePort(INSTANCE_PORT);
         // 2. 使用工具发送请求.
         Response response = httpClient.sendRegisterRequest(registerRequest);
         if (ResponseStatus.SUCCESS.equals(response.getStatus())) {

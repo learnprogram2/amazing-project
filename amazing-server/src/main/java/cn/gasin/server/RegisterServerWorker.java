@@ -2,8 +2,10 @@ package cn.gasin.server;
 
 import cn.gasin.server.registry.RegistryExpel;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+@SpringBootApplication
 public class RegisterServerWorker extends Thread {
 
     public static void main(String[] args) {
@@ -15,7 +17,7 @@ public class RegisterServerWorker extends Thread {
         super.run();
         // receive register request:
         // start a web server
-        ConfigurableApplicationContext context = SpringApplication.run(Application.class);
+        ConfigurableApplicationContext context = SpringApplication.run(RegisterServerWorker.class);
 
 
         // check unlive instance

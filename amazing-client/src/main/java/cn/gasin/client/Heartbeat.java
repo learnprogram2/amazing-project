@@ -26,8 +26,7 @@ public class Heartbeat extends Thread {
         while (registerClientWorker.running()) {
             // 1. 睡一小会, 发送心跳请求
             try {
-                HeartbeatRequest heartbeatRequest =
-                        HeartbeatRequest.builder().instanceId(INSTANCE_ID).serviceName(SERVICE_NAME).build();
+                HeartbeatRequest heartbeatRequest = new HeartbeatRequest().setInstanceId(INSTANCE_ID).setServiceName(SERVICE_NAME);
                 Response hbResponse = httpClient.sendHeartbeat(heartbeatRequest);
                 if (ResponseStatus.SUCCESS.equals(hbResponse.getStatus())) {
                     log.info("heartbeat succ: {}", System.currentTimeMillis());
