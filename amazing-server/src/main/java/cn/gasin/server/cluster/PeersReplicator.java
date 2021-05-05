@@ -5,11 +5,10 @@ import cn.gasin.api.http.heartbeat.HeartbeatRequest;
 import cn.gasin.api.http.register.RegisterRequest;
 import cn.gasin.api.server.cluster.PeersReplicateBatch;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * 负责register-server集群之间的同步
@@ -42,6 +41,10 @@ public class PeersReplicator {
      */
     private final LinkedBlockingQueue<PeersReplicateBatch> replicateBatchesQueue = new LinkedBlockingQueue<PeersReplicateBatch>(PEER_REPLICATOR_REPLICATE_QUEUE_SIZE);
 
+
+    @Autowired
+    private RegisterServerCluster registerServerCluster;
+    private ExecutorService replicateThreadPool;
 
     public PeersReplicator() {
         // ========================== 第一层队列同步到第二层队列, 定时维护batch到第三层队列 =============================
@@ -79,6 +82,7 @@ public class PeersReplicator {
         }.start();
 
         // ============================ 把batch同步到其他 peers那里的 ===============================================
+        replicateThreadPool = Executors.newFixedThreadPool(registerServerCluster.getPeers().size());
         // 同步batch包的线程
         new Thread() {
             {
@@ -93,8 +97,12 @@ public class PeersReplicator {
                         if (batch == null) continue;
 
                         log.info("start republic batch to peers.");
-                        // TODO imply republic batch to peers.
-
+                        for (String peer : registerServerCluster.getPeers()) {
+                            replicateThreadPool.execute(() -> {
+                                // TODO imply republic batch to peer
+                                log.info("replicate to peer:{}", peer);
+                            });
+                        }
                     } catch (InterruptedException e) {
                         log.warn("batch replicate thread was interrupted.");
                     }
