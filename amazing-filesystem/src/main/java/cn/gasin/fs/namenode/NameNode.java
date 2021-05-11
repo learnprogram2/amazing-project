@@ -1,6 +1,7 @@
 package cn.gasin.fs.namenode;
 
 
+import cn.gasin.fs.namenode.cluster.DataNodeManager;
 import cn.gasin.fs.namenode.rpc.NameNodeRpcServer;
 import lombok.extern.log4j.Log4j2;
 
@@ -14,6 +15,7 @@ public class NameNode {
     // services
     private FSNameSystem fsNamesystem;
     private NameNodeRpcServer rpcServer;
+    private DataNodeManager dataNodeManager;
 
     public NameNode() {
         initialize();
@@ -25,8 +27,11 @@ public class NameNode {
     public void initialize() {
         // maintain all the metadata.
         this.fsNamesystem = new FSNameSystem();
+        // maintain cluster's datanode;
+        this.dataNodeManager = new DataNodeManager();
+
         // rpc protocol.
-        this.rpcServer = new NameNodeRpcServer(fsNamesystem);
+        this.rpcServer = new NameNodeRpcServer(fsNamesystem, dataNodeManager);
         this.rpcServer.start();
     }
 

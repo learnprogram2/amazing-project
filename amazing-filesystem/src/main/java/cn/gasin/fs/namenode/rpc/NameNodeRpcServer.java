@@ -1,18 +1,23 @@
 package cn.gasin.fs.namenode.rpc;
 
 import cn.gasin.fs.namenode.FSNameSystem;
+import cn.gasin.fs.namenode.cluster.DataNodeInfo;
+import cn.gasin.fs.namenode.cluster.DataNodeManager;
 import lombok.extern.log4j.Log4j2;
 
 /**
  * NameNode的rpc服务的接口
  */
 @Log4j2
-public class NameNodeRpcServer {
+public class NameNodeRpcServer implements ClusterMaintain {
     // service to deal with requests.
     private FSNameSystem fsNameSystem;
+    // service to maintain cluster
+    private DataNodeManager dataNodeManager;
 
-    public NameNodeRpcServer(FSNameSystem fsNamesystem) {
+    public NameNodeRpcServer(FSNameSystem fsNamesystem, DataNodeManager dataNodeManager) {
         this.fsNameSystem = fsNamesystem;
+        this.dataNodeManager = dataNodeManager;
     }
 
     public void start() {
@@ -27,5 +32,11 @@ public class NameNodeRpcServer {
      */
     public Boolean mkdir(String path) throws Exception {
         return fsNameSystem.mkdir(path);
+    }
+
+
+    @Override
+    public Boolean register(String ip, Integer port, String hostname) {
+        return dataNodeManager.register(new DataNodeInfo(ip, port, hostname));
     }
 }

@@ -3,6 +3,7 @@ package cn.gasin.fs.datanode;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -18,13 +19,14 @@ public class NameNodeGroupOfferService {
     // 和standby-nameNode通讯的actor组件
     private NameNodeServiceActor standbyServiceActor;
 
-    private List<NameNodeServiceActor> serviceActorList;
+    private List<NameNodeServiceActor> serviceActorList = new CopyOnWriteArrayList<>();
 
 
     public NameNodeGroupOfferService() {
+        shouldRun = true;
+        // net IO actor
         activeServiceActor = new NameNodeServiceActor();
         standbyServiceActor = new NameNodeServiceActor();
-        shouldRun = true;
         serviceActorList.add(activeServiceActor);
         serviceActorList.add(standbyServiceActor);
     }
@@ -35,15 +37,11 @@ public class NameNodeGroupOfferService {
         while (shouldRun && !register()) {
             log.warn("register wailed, retry.");
         }
+        // 心跳
+        startHeartbeat();
     }
 
-    public void stop() {
-        shouldRun = false;
-        for (NameNodeServiceActor nameNodeServiceActor : serviceActorList) {
-            nameNodeServiceActor.stop();
-        }
-    }
-
+    /** 启动actor的注册 */
     private boolean register() {
         try {
             CountDownLatch countDownLatch = new CountDownLatch(2);
@@ -56,4 +54,23 @@ public class NameNodeGroupOfferService {
             return false;
         }
     }
+
+    /** 启动actor的心跳机制 */
+    private void startHeartbeat() {
+        if (shouldRun) {
+            for (NameNodeServiceActor nNActor : serviceActorList) {
+                nNActor.startHeartbeat();
+            }
+        }
+    }
+
+
+    // 停止集群服务
+    public void stop() {
+        shouldRun = false;
+        for (NameNodeServiceActor nameNodeServiceActor : serviceActorList) {
+            nameNodeServiceActor.stop();
+        }
+    }
+
 }
