@@ -17,7 +17,7 @@ public class NameNodeServiceActor {
 
     public NameNodeServiceActor() {
         heartbeatTimer = Executors.newScheduledThreadPool(1,
-                r -> new Thread("nnActor-heartbeat-executor-schedule-thread"));
+                                                          r -> new Thread("nnActor-heartbeat-executor-schedule-thread"));
     }
 
     /**
