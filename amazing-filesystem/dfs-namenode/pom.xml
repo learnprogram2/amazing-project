@@ -3,30 +3,20 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>amazing-registration</artifactId>
+        <artifactId>amazing-filesystem</artifactId>
         <groupId>cn.gasin</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>amazing-filesystem</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>dfs-datanode</module>
-        <module>dfs-namenode</module>
-        <module>dfs-client</module>
-        <module>dfs-rpc</module>
-    </modules>
+    <artifactId>dfs-namenode</artifactId>
+
 
     <dependencies>
-
-
+        <dependency>
+            <groupId>cn.gasin</groupId>
+            <artifactId>dfs-rpc</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
-
-
-    <build>
-        <plugins>
-        </plugins>
-    </build>
-
 </project>
