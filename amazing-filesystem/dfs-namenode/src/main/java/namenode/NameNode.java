@@ -1,9 +1,11 @@
 package namenode;
 
 
+import lombok.extern.log4j.Log4j2;
 import namenode.cluster.DataNodeManager;
 import namenode.rpc.NameNodeRpcServer;
-import lombok.extern.log4j.Log4j2;
+
+import java.io.IOException;
 
 /**
  * the main class of FS.
@@ -17,14 +19,17 @@ public class NameNode {
     private NameNodeRpcServer rpcServer;
     private DataNodeManager dataNodeManager;
 
-    public NameNode() {
+    public NameNode() throws IOException {
         initialize();
+        log.info("nameNode started");
     }
 
     /**
      * prepare all steps before running.
      */
-    public void initialize() {
+    public void initialize() throws IOException {
+        shouldRun = true;
+
         // maintain all the metadata.
         this.fsNamesystem = new FSNameSystem();
         // maintain cluster's datanode;
@@ -42,11 +47,13 @@ public class NameNode {
                 wait();
             } catch (InterruptedException e) {
                 log.info("name node was interrupted");
+
             }
         }
     }
 
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws IOException {
         NameNode nn = new NameNode();
         nn.join(); // 始终阻塞在这里running.
     }
