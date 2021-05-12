@@ -5,14 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.gasin</groupId>
-    <artifactId>amazing-registration</artifactId>
+    <artifactId>amazing-project</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>amazing-client</module>
-        <module>amazing-server</module>
-        <module>amazing-api</module>
         <module>amazing-filesystem</module>
+        <module>amazing-registration</module>
     </modules>
 
     <properties>
@@ -22,29 +20,14 @@
 
     <dependencies>
 
-        <dependency>
-            <groupId>cn.gasin</groupId>
-            <artifactId>amazing-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.8</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>2.14.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.14.1</version>
-        </dependency>
 
+        <!--测试-->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -52,6 +35,10 @@
         </dependency>
 
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

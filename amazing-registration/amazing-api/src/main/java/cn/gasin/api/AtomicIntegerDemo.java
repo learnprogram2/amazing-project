@@ -2,13 +2,16 @@ package cn.gasin.api;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Log4j2
 public class AtomicIntegerDemo {
 
     public static void main(String[] args) {
+        log.info("fdsafsdfawe");
         AtomicIntegerDemo demo = new AtomicIntegerDemo();
         long t1 = System.currentTimeMillis();
         demo.atomicAdd();

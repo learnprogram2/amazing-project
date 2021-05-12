@@ -13,7 +13,7 @@ public class SocketClient {
 
 
     public static void main(String[] args) throws Exception {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
             new Thread(() -> {
                 try {
                     connection();
@@ -30,17 +30,17 @@ public class SocketClient {
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
         OutputStream outputStream = socket.getOutputStream();
 
-        new Thread(() -> {
-            try {
-                Thread.sleep(5000);
-                // FIXME: 不知道这个关闭顺序是什么.
-                inputStream.close();
-                inputStreamReader.close();
-                socket.close();
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        }).start();
+//        new Thread(() -> {
+//            try {
+//                Thread.sleep(5000);
+//                // FIXME: 不知道这个关闭顺序是什么.
+//                inputStream.close();
+//                inputStreamReader.close();
+//                socket.close();
+//            } catch (Exception e) {
+//                System.out.println(e);
+//            }
+//        }).start();
 
         // 1. 发送
         outputStream.write("hello world".getBytes(StandardCharsets.UTF_8)); // 底层拆成TCP包发出去, 还会包装成帧.
