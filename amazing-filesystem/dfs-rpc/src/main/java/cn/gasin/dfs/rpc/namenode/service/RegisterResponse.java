@@ -4,11 +4,11 @@
 package cn.gasin.dfs.rpc.namenode.service;
 
 /**
- * Protobuf type {@code cn.gasin.dfs.rpc.namenode.RegisterResponse}
+ * Protobuf type {@code cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.RegisterResponse}
  */
 public final class RegisterResponse extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:cn.gasin.dfs.rpc.namenode.RegisterResponse)
+    // @@protoc_insertion_point(message_implements:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.RegisterResponse)
     RegisterResponseOrBuilder {
 private static final long serialVersionUID = 0L;
   // Use RegisterResponse.newBuilder() to construct.
@@ -16,6 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private RegisterResponse() {
+    message_ = "";
   }
 
   @Override
@@ -51,6 +52,12 @@ private static final long serialVersionUID = 0L;
           case 8: {
 
             status_ = input.readInt32();
+            break;
+          }
+          case 18: {
+            String s = input.readStringRequireUtf8();
+
+            message_ = s;
             break;
           }
           default: {
@@ -96,6 +103,44 @@ private static final long serialVersionUID = 0L;
     return status_;
   }
 
+  public static final int MESSAGE_FIELD_NUMBER = 2;
+  private volatile Object message_;
+  /**
+   * <code>string message = 2;</code>
+   * @return The message.
+   */
+  @Override
+  public String getMessage() {
+    Object ref = message_;
+    if (ref instanceof String) {
+      return (String) ref;
+    } else {
+      com.google.protobuf.ByteString bs =
+          (com.google.protobuf.ByteString) ref;
+      String s = bs.toStringUtf8();
+      message_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string message = 2;</code>
+   * @return The bytes for message.
+   */
+  @Override
+  public com.google.protobuf.ByteString
+      getMessageBytes() {
+    Object ref = message_;
+    if (ref instanceof String) {
+      com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (String) ref);
+      message_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   @Override
   public final boolean isInitialized() {
@@ -113,6 +158,9 @@ private static final long serialVersionUID = 0L;
     if (status_ != 0) {
       output.writeInt32(1, status_);
     }
+    if (!getMessageBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, message_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -125,6 +173,9 @@ private static final long serialVersionUID = 0L;
     if (status_ != 0) {
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(1, status_);
+    }
+    if (!getMessageBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, message_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -143,6 +194,8 @@ private static final long serialVersionUID = 0L;
 
     if (getStatus()
         != other.getStatus()) return false;
+    if (!getMessage()
+        .equals(other.getMessage())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -156,6 +209,8 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + STATUS_FIELD_NUMBER;
     hash = (53 * hash) + getStatus();
+    hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
+    hash = (53 * hash) + getMessage().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -252,11 +307,11 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code cn.gasin.dfs.rpc.namenode.RegisterResponse}
+   * Protobuf type {@code cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.RegisterResponse}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:cn.gasin.dfs.rpc.namenode.RegisterResponse)
+      // @@protoc_insertion_point(builder_implements:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.RegisterResponse)
       RegisterResponseOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
@@ -271,7 +326,7 @@ private static final long serialVersionUID = 0L;
               RegisterResponse.class, Builder.class);
     }
 
-    // Construct using cn.gasin.dfs.rpc.namenode.service.RegisterResponse.newBuilder()
+    // Construct using cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.service.RegisterResponse.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -290,6 +345,8 @@ private static final long serialVersionUID = 0L;
     public Builder clear() {
       super.clear();
       status_ = 0;
+
+      message_ = "";
 
       return this;
     }
@@ -318,6 +375,7 @@ private static final long serialVersionUID = 0L;
     public RegisterResponse buildPartial() {
       RegisterResponse result = new RegisterResponse(this);
       result.status_ = status_;
+      result.message_ = message_;
       onBuilt();
       return result;
     }
@@ -369,6 +427,10 @@ private static final long serialVersionUID = 0L;
       if (other.getStatus() != 0) {
         setStatus(other.getStatus());
       }
+      if (!other.getMessage().isEmpty()) {
+        message_ = other.message_;
+        onChanged();
+      }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
       return this;
@@ -413,7 +475,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setStatus(int value) {
-      
+
       status_ = value;
       onChanged();
       return this;
@@ -423,8 +485,84 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearStatus() {
-      
+
       status_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private Object message_ = "";
+    /**
+     * <code>string message = 2;</code>
+     * @return The message.
+     */
+    public String getMessage() {
+      Object ref = message_;
+      if (!(ref instanceof String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        message_ = s;
+        return s;
+      } else {
+        return (String) ref;
+      }
+    }
+    /**
+     * <code>string message = 2;</code>
+     * @return The bytes for message.
+     */
+    public com.google.protobuf.ByteString
+        getMessageBytes() {
+      Object ref = message_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
+        message_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string message = 2;</code>
+     * @param value The message to set.
+     * @return This builder for chaining.
+     */
+    public Builder setMessage(
+        String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+
+      message_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string message = 2;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearMessage() {
+
+      message_ = getDefaultInstance().getMessage();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string message = 2;</code>
+     * @param value The bytes for message to set.
+     * @return This builder for chaining.
+     */
+    public Builder setMessageBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+
+      message_ = value;
       onChanged();
       return this;
     }
@@ -441,10 +579,10 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:cn.gasin.dfs.rpc.namenode.RegisterResponse)
+    // @@protoc_insertion_point(builder_scope:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.RegisterResponse)
   }
 
-  // @@protoc_insertion_point(class_scope:cn.gasin.dfs.rpc.namenode.RegisterResponse)
+  // @@protoc_insertion_point(class_scope:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.RegisterResponse)
   private static final RegisterResponse DEFAULT_INSTANCE;
   static {
     DEFAULT_INSTANCE = new RegisterResponse();

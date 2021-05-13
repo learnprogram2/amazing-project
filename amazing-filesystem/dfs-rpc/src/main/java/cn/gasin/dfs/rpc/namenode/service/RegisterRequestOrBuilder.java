@@ -4,7 +4,7 @@
 package cn.gasin.dfs.rpc.namenode.service;
 
 public interface RegisterRequestOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:cn.gasin.dfs.rpc.namenode.RegisterRequest)
+    // @@protoc_insertion_point(interface_extends:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.RegisterRequest)
     com.google.protobuf.MessageOrBuilder {
 
   /**

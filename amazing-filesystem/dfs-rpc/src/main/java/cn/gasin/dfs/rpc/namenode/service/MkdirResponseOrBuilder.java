@@ -3,8 +3,8 @@
 
 package cn.gasin.dfs.rpc.namenode.service;
 
-public interface HeartbeatResponseOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.HeartbeatResponse)
+public interface MkdirResponseOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.MkdirResponse)
     com.google.protobuf.MessageOrBuilder {
 
   /**

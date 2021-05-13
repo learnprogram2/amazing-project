@@ -4,7 +4,7 @@
 package cn.gasin.dfs.rpc.namenode.service;
 
 public interface RegisterResponseOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:cn.gasin.dfs.rpc.namenode.RegisterResponse)
+    // @@protoc_insertion_point(interface_extends:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.RegisterResponse)
     com.google.protobuf.MessageOrBuilder {
 
   /**
@@ -12,4 +12,16 @@ public interface RegisterResponseOrBuilder extends
    * @return The status.
    */
   int getStatus();
+
+  /**
+   * <code>string message = 2;</code>
+   * @return The message.
+   */
+  String getMessage();
+  /**
+   * <code>string message = 2;</code>
+   * @return The bytes for message.
+   */
+  com.google.protobuf.ByteString
+      getMessageBytes();
 }

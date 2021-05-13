@@ -4,27 +4,26 @@
 package cn.gasin.dfs.rpc.namenode.service;
 
 /**
- * Protobuf type {@code cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.HeartbeatRequest}
+ * Protobuf type {@code cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.MkdirResponse}
  */
-public final class HeartbeatRequest extends
+public final class MkdirResponse extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.HeartbeatRequest)
-    HeartbeatRequestOrBuilder {
+    // @@protoc_insertion_point(message_implements:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.MkdirResponse)
+    MkdirResponseOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use HeartbeatRequest.newBuilder() to construct.
-  private HeartbeatRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use MkdirResponse.newBuilder() to construct.
+  private MkdirResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private HeartbeatRequest() {
-    ip_ = "";
-    hostname_ = "";
+  private MkdirResponse() {
+    message_ = "";
   }
 
   @Override
   @SuppressWarnings({"unused"})
   protected Object newInstance(
       UnusedPrivateParameter unused) {
-    return new HeartbeatRequest();
+    return new MkdirResponse();
   }
 
   @Override
@@ -32,7 +31,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private HeartbeatRequest(
+  private MkdirResponse(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -50,21 +49,15 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 10: {
-            String s = input.readStringRequireUtf8();
+          case 8: {
 
-            ip_ = s;
+            status_ = input.readInt32();
             break;
           }
-          case 16: {
-
-            port_ = input.readInt32();
-            break;
-          }
-          case 26: {
+          case 18: {
             String s = input.readStringRequireUtf8();
 
-            hostname_ = s;
+            message_ = s;
             break;
           }
           default: {
@@ -88,98 +81,60 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return NameNodeServer.internal_static_cn_gasin_dfs_rpc_namenode_HeartbeatRequest_descriptor;
+    return NameNodeServer.internal_static_cn_gasin_dfs_rpc_namenode_MkdirResponse_descriptor;
   }
 
   @Override
   protected FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return NameNodeServer.internal_static_cn_gasin_dfs_rpc_namenode_HeartbeatRequest_fieldAccessorTable
+    return NameNodeServer.internal_static_cn_gasin_dfs_rpc_namenode_MkdirResponse_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            HeartbeatRequest.class, Builder.class);
+            MkdirResponse.class, Builder.class);
   }
 
-  public static final int IP_FIELD_NUMBER = 1;
-  private volatile Object ip_;
+  public static final int STATUS_FIELD_NUMBER = 1;
+  private int status_;
   /**
-   * <code>string ip = 1;</code>
-   * @return The ip.
+   * <code>int32 status = 1;</code>
+   * @return The status.
    */
   @Override
-  public String getIp() {
-    Object ref = ip_;
+  public int getStatus() {
+    return status_;
+  }
+
+  public static final int MESSAGE_FIELD_NUMBER = 2;
+  private volatile Object message_;
+  /**
+   * <code>string message = 2;</code>
+   * @return The message.
+   */
+  @Override
+  public String getMessage() {
+    Object ref = message_;
     if (ref instanceof String) {
       return (String) ref;
     } else {
       com.google.protobuf.ByteString bs =
           (com.google.protobuf.ByteString) ref;
       String s = bs.toStringUtf8();
-      ip_ = s;
+      message_ = s;
       return s;
     }
   }
   /**
-   * <code>string ip = 1;</code>
-   * @return The bytes for ip.
+   * <code>string message = 2;</code>
+   * @return The bytes for message.
    */
   @Override
   public com.google.protobuf.ByteString
-      getIpBytes() {
-    Object ref = ip_;
+      getMessageBytes() {
+    Object ref = message_;
     if (ref instanceof String) {
       com.google.protobuf.ByteString b =
           com.google.protobuf.ByteString.copyFromUtf8(
               (String) ref);
-      ip_ = b;
-      return b;
-    } else {
-      return (com.google.protobuf.ByteString) ref;
-    }
-  }
-
-  public static final int PORT_FIELD_NUMBER = 2;
-  private int port_;
-  /**
-   * <code>int32 port = 2;</code>
-   * @return The port.
-   */
-  @Override
-  public int getPort() {
-    return port_;
-  }
-
-  public static final int HOSTNAME_FIELD_NUMBER = 3;
-  private volatile Object hostname_;
-  /**
-   * <code>string hostname = 3;</code>
-   * @return The hostname.
-   */
-  @Override
-  public String getHostname() {
-    Object ref = hostname_;
-    if (ref instanceof String) {
-      return (String) ref;
-    } else {
-      com.google.protobuf.ByteString bs =
-          (com.google.protobuf.ByteString) ref;
-      String s = bs.toStringUtf8();
-      hostname_ = s;
-      return s;
-    }
-  }
-  /**
-   * <code>string hostname = 3;</code>
-   * @return The bytes for hostname.
-   */
-  @Override
-  public com.google.protobuf.ByteString
-      getHostnameBytes() {
-    Object ref = hostname_;
-    if (ref instanceof String) {
-      com.google.protobuf.ByteString b =
-          com.google.protobuf.ByteString.copyFromUtf8(
-              (String) ref);
-      hostname_ = b;
+      message_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -200,14 +155,11 @@ private static final long serialVersionUID = 0L;
   @Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!getIpBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, ip_);
+    if (status_ != 0) {
+      output.writeInt32(1, status_);
     }
-    if (port_ != 0) {
-      output.writeInt32(2, port_);
-    }
-    if (!getHostnameBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, hostname_);
+    if (!getMessageBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, message_);
     }
     unknownFields.writeTo(output);
   }
@@ -218,15 +170,12 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!getIpBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, ip_);
-    }
-    if (port_ != 0) {
+    if (status_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(2, port_);
+        .computeInt32Size(1, status_);
     }
-    if (!getHostnameBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, hostname_);
+    if (!getMessageBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, message_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -238,17 +187,15 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof HeartbeatRequest)) {
+    if (!(obj instanceof MkdirResponse)) {
       return super.equals(obj);
     }
-    HeartbeatRequest other = (HeartbeatRequest) obj;
+    MkdirResponse other = (MkdirResponse) obj;
 
-    if (!getIp()
-        .equals(other.getIp())) return false;
-    if (getPort()
-        != other.getPort()) return false;
-    if (!getHostname()
-        .equals(other.getHostname())) return false;
+    if (getStatus()
+        != other.getStatus()) return false;
+    if (!getMessage()
+        .equals(other.getMessage())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -260,80 +207,78 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + IP_FIELD_NUMBER;
-    hash = (53 * hash) + getIp().hashCode();
-    hash = (37 * hash) + PORT_FIELD_NUMBER;
-    hash = (53 * hash) + getPort();
-    hash = (37 * hash) + HOSTNAME_FIELD_NUMBER;
-    hash = (53 * hash) + getHostname().hashCode();
+    hash = (37 * hash) + STATUS_FIELD_NUMBER;
+    hash = (53 * hash) + getStatus();
+    hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
+    hash = (53 * hash) + getMessage().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static HeartbeatRequest parseFrom(
+  public static MkdirResponse parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static HeartbeatRequest parseFrom(
+  public static MkdirResponse parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static HeartbeatRequest parseFrom(
+  public static MkdirResponse parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static HeartbeatRequest parseFrom(
+  public static MkdirResponse parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static HeartbeatRequest parseFrom(byte[] data)
+  public static MkdirResponse parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static HeartbeatRequest parseFrom(
+  public static MkdirResponse parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static HeartbeatRequest parseFrom(java.io.InputStream input)
+  public static MkdirResponse parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static HeartbeatRequest parseFrom(
+  public static MkdirResponse parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static HeartbeatRequest parseDelimitedFrom(java.io.InputStream input)
+  public static MkdirResponse parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static HeartbeatRequest parseDelimitedFrom(
+  public static MkdirResponse parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static HeartbeatRequest parseFrom(
+  public static MkdirResponse parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static HeartbeatRequest parseFrom(
+  public static MkdirResponse parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -346,7 +291,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(HeartbeatRequest prototype) {
+  public static Builder newBuilder(MkdirResponse prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @Override
@@ -362,26 +307,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.HeartbeatRequest}
+   * Protobuf type {@code cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.MkdirResponse}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.HeartbeatRequest)
-      HeartbeatRequestOrBuilder {
+      // @@protoc_insertion_point(builder_implements:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.MkdirResponse)
+      MkdirResponseOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return NameNodeServer.internal_static_cn_gasin_dfs_rpc_namenode_HeartbeatRequest_descriptor;
+      return NameNodeServer.internal_static_cn_gasin_dfs_rpc_namenode_MkdirResponse_descriptor;
     }
 
     @Override
     protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return NameNodeServer.internal_static_cn_gasin_dfs_rpc_namenode_HeartbeatRequest_fieldAccessorTable
+      return NameNodeServer.internal_static_cn_gasin_dfs_rpc_namenode_MkdirResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              HeartbeatRequest.class, Builder.class);
+              MkdirResponse.class, Builder.class);
     }
 
-    // Construct using cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.service.HeartbeatRequest.newBuilder()
+    // Construct using cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.service.MkdirResponse.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -399,11 +344,9 @@ private static final long serialVersionUID = 0L;
     @Override
     public Builder clear() {
       super.clear();
-      ip_ = "";
+      status_ = 0;
 
-      port_ = 0;
-
-      hostname_ = "";
+      message_ = "";
 
       return this;
     }
@@ -411,17 +354,17 @@ private static final long serialVersionUID = 0L;
     @Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return NameNodeServer.internal_static_cn_gasin_dfs_rpc_namenode_HeartbeatRequest_descriptor;
+      return NameNodeServer.internal_static_cn_gasin_dfs_rpc_namenode_MkdirResponse_descriptor;
     }
 
     @Override
-    public HeartbeatRequest getDefaultInstanceForType() {
-      return HeartbeatRequest.getDefaultInstance();
+    public MkdirResponse getDefaultInstanceForType() {
+      return MkdirResponse.getDefaultInstance();
     }
 
     @Override
-    public HeartbeatRequest build() {
-      HeartbeatRequest result = buildPartial();
+    public MkdirResponse build() {
+      MkdirResponse result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -429,11 +372,10 @@ private static final long serialVersionUID = 0L;
     }
 
     @Override
-    public HeartbeatRequest buildPartial() {
-      HeartbeatRequest result = new HeartbeatRequest(this);
-      result.ip_ = ip_;
-      result.port_ = port_;
-      result.hostname_ = hostname_;
+    public MkdirResponse buildPartial() {
+      MkdirResponse result = new MkdirResponse(this);
+      result.status_ = status_;
+      result.message_ = message_;
       onBuilt();
       return result;
     }
@@ -472,25 +414,21 @@ private static final long serialVersionUID = 0L;
     }
     @Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof HeartbeatRequest) {
-        return mergeFrom((HeartbeatRequest)other);
+      if (other instanceof MkdirResponse) {
+        return mergeFrom((MkdirResponse)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(HeartbeatRequest other) {
-      if (other == HeartbeatRequest.getDefaultInstance()) return this;
-      if (!other.getIp().isEmpty()) {
-        ip_ = other.ip_;
-        onChanged();
+    public Builder mergeFrom(MkdirResponse other) {
+      if (other == MkdirResponse.getDefaultInstance()) return this;
+      if (other.getStatus() != 0) {
+        setStatus(other.getStatus());
       }
-      if (other.getPort() != 0) {
-        setPort(other.getPort());
-      }
-      if (!other.getHostname().isEmpty()) {
-        hostname_ = other.hostname_;
+      if (!other.getMessage().isEmpty()) {
+        message_ = other.message_;
         onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -508,11 +446,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      HeartbeatRequest parsedMessage = null;
+      MkdirResponse parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (HeartbeatRequest) e.getUnfinishedMessage();
+        parsedMessage = (MkdirResponse) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -522,185 +460,109 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private Object ip_ = "";
+    private int status_ ;
     /**
-     * <code>string ip = 1;</code>
-     * @return The ip.
-     */
-    public String getIp() {
-      Object ref = ip_;
-      if (!(ref instanceof String)) {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        ip_ = s;
-        return s;
-      } else {
-        return (String) ref;
-      }
-    }
-    /**
-     * <code>string ip = 1;</code>
-     * @return The bytes for ip.
-     */
-    public com.google.protobuf.ByteString
-        getIpBytes() {
-      Object ref = ip_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
-        ip_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    /**
-     * <code>string ip = 1;</code>
-     * @param value The ip to set.
-     * @return This builder for chaining.
-     */
-    public Builder setIp(
-        String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-
-      ip_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>string ip = 1;</code>
-     * @return This builder for chaining.
-     */
-    public Builder clearIp() {
-
-      ip_ = getDefaultInstance().getIp();
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>string ip = 1;</code>
-     * @param value The bytes for ip to set.
-     * @return This builder for chaining.
-     */
-    public Builder setIpBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-
-      ip_ = value;
-      onChanged();
-      return this;
-    }
-
-    private int port_ ;
-    /**
-     * <code>int32 port = 2;</code>
-     * @return The port.
+     * <code>int32 status = 1;</code>
+     * @return The status.
      */
     @Override
-    public int getPort() {
-      return port_;
+    public int getStatus() {
+      return status_;
     }
     /**
-     * <code>int32 port = 2;</code>
-     * @param value The port to set.
+     * <code>int32 status = 1;</code>
+     * @param value The status to set.
      * @return This builder for chaining.
      */
-    public Builder setPort(int value) {
+    public Builder setStatus(int value) {
 
-      port_ = value;
+      status_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 port = 2;</code>
+     * <code>int32 status = 1;</code>
      * @return This builder for chaining.
      */
-    public Builder clearPort() {
+    public Builder clearStatus() {
 
-      port_ = 0;
+      status_ = 0;
       onChanged();
       return this;
     }
 
-    private Object hostname_ = "";
+    private Object message_ = "";
     /**
-     * <code>string hostname = 3;</code>
-     * @return The hostname.
+     * <code>string message = 2;</code>
+     * @return The message.
      */
-    public String getHostname() {
-      Object ref = hostname_;
+    public String getMessage() {
+      Object ref = message_;
       if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
-        hostname_ = s;
+        message_ = s;
         return s;
       } else {
         return (String) ref;
       }
     }
     /**
-     * <code>string hostname = 3;</code>
-     * @return The bytes for hostname.
+     * <code>string message = 2;</code>
+     * @return The bytes for message.
      */
     public com.google.protobuf.ByteString
-        getHostnameBytes() {
-      Object ref = hostname_;
+        getMessageBytes() {
+      Object ref = message_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
-        hostname_ = b;
+        message_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string hostname = 3;</code>
-     * @param value The hostname to set.
+     * <code>string message = 2;</code>
+     * @param value The message to set.
      * @return This builder for chaining.
      */
-    public Builder setHostname(
+    public Builder setMessage(
         String value) {
       if (value == null) {
     throw new NullPointerException();
   }
 
-      hostname_ = value;
+      message_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string hostname = 3;</code>
+     * <code>string message = 2;</code>
      * @return This builder for chaining.
      */
-    public Builder clearHostname() {
+    public Builder clearMessage() {
 
-      hostname_ = getDefaultInstance().getHostname();
+      message_ = getDefaultInstance().getMessage();
       onChanged();
       return this;
     }
     /**
-     * <code>string hostname = 3;</code>
-     * @param value The bytes for hostname to set.
+     * <code>string message = 2;</code>
+     * @param value The bytes for message to set.
      * @return This builder for chaining.
      */
-    public Builder setHostnameBytes(
+    public Builder setMessageBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
 
-      hostname_ = value;
+      message_ = value;
       onChanged();
       return this;
     }
@@ -717,41 +579,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.HeartbeatRequest)
+    // @@protoc_insertion_point(builder_scope:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.MkdirResponse)
   }
 
-  // @@protoc_insertion_point(class_scope:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.HeartbeatRequest)
-  private static final HeartbeatRequest DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.MkdirResponse)
+  private static final MkdirResponse DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new HeartbeatRequest();
+    DEFAULT_INSTANCE = new MkdirResponse();
   }
 
-  public static HeartbeatRequest getDefaultInstance() {
+  public static MkdirResponse getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<HeartbeatRequest>
-      PARSER = new com.google.protobuf.AbstractParser<HeartbeatRequest>() {
+  private static final com.google.protobuf.Parser<MkdirResponse>
+      PARSER = new com.google.protobuf.AbstractParser<MkdirResponse>() {
     @Override
-    public HeartbeatRequest parsePartialFrom(
+    public MkdirResponse parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new HeartbeatRequest(input, extensionRegistry);
+      return new MkdirResponse(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<HeartbeatRequest> parser() {
+  public static com.google.protobuf.Parser<MkdirResponse> parser() {
     return PARSER;
   }
 
   @Override
-  public com.google.protobuf.Parser<HeartbeatRequest> getParserForType() {
+  public com.google.protobuf.Parser<MkdirResponse> getParserForType() {
     return PARSER;
   }
 
   @Override
-  public HeartbeatRequest getDefaultInstanceForType() {
+  public MkdirResponse getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

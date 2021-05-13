@@ -1,7 +1,7 @@
 package directory;
 
-import namenode.directory.FSDirectory;
-import namenode.directory.model.DirectoryNode;
+import cn.gasin.dfs.namenode.directory.FSDirectory;
+import cn.gasin.dfs.namenode.directory.model.DirectoryNode;
 import org.junit.jupiter.api.Test;
 
 class FSDirectoryTest {
