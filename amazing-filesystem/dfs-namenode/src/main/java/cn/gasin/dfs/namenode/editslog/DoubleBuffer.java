@@ -2,50 +2,60 @@ package cn.gasin.dfs.namenode.editslog;
 
 import lombok.extern.log4j.Log4j2;
 
-import java.util.LinkedList;
+import static cn.gasin.dfs.namenode.config.Config.EDIT_LOG_BUFFER_SIZE_SYNC_THRESHOLD;
 
 /**
  * 内存的缓冲区: 准备两块缓冲, 交替着来.
  * 1. 为输出到磁盘的缓存
+ * <p>
+ * FIXME: 这个doubleBuffer, 有很多不好理解的写法, 比如cn.gasin.dfs.namenode.editslog.FSEditLog#syncBuffer()的维护内容, 我觉得有更易读的写法, 需要优化.
  */
 @Log4j2
 public class DoubleBuffer {
-
-    LinkedList<EditLog> currentBuffer;
-    LinkedList<EditLog> syncBuffer;
+    // 当前的buffer, 接收程序中的editsLog
+    private EditLogBuffer currentBuffer;
+    // 截取的一块edits log, 没有修改, 用来刷盘, 刷完删掉
+    private EditLogBuffer syncBuffer;
 
     public DoubleBuffer() {
-        currentBuffer = new LinkedList<>();
-        syncBuffer = new LinkedList<>();
+        // 把两块buffer初始化,
+        currentBuffer = new EditLogBuffer();
+        syncBuffer = new EditLogBuffer();
     }
 
     public void write(EditLog editLog) {
-        currentBuffer.add(editLog);
+        // 加入到buffer中.
+        currentBuffer.offer(editLog);
     }
 
     /**
      * 交换两个buffer
-     * FIXME: 两个缓冲的交换, 有并发问题, 还没有解决.
+     * 两个缓冲的交换, 有并发问题, 使用synchronized, 锁当前obj.
      */
-    public void readyToSync() {
-        LinkedList<EditLog> temp = currentBuffer;
+    public synchronized void readyToSync() {
+        EditLogBuffer temp = currentBuffer;
         currentBuffer = syncBuffer;
         syncBuffer = temp;
     }
 
     /**
      * 把准备好的一块缓冲区数据刷到磁盘
+     * 阻塞方法.
      */
-    public void flush() {
-        for (EditLog editLog : syncBuffer) {
-            log.info("flush editLog to disk:{}", editLog);
-            // TODO: implements flush logic.
-        }
-        syncBuffer.clear();
+    public synchronized void flush() {
+        syncBuffer.flush();
         log.info("flush success");
     }
 
     public Long getSyncBufferLatest() {
         return syncBuffer.getLast() == null ? null : syncBuffer.getLast().getTxid();
+    }
+
+    /**
+     * 是否应该把buffer中的数据刷盘, 就是检查队列中的editLog是不是达到了阈值.
+     * FIXME: 这里有一个问题: 如果currentBuf满了但是当前syncBuf还没有刷完, 这个时候要怎么处理? 要阻塞住?
+     */
+    public boolean shouldSyncToDisk() {
+        return currentBuffer.size() >= EDIT_LOG_BUFFER_SIZE_SYNC_THRESHOLD;
     }
 }

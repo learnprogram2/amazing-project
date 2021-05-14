@@ -8,6 +8,9 @@ import lombok.extern.log4j.Log4j2;
  * <p>
  * 51_案例实战：基于synchronized实现edits log的分段加锁机制
  * 52_案例实战：基于wait与notify实现edits log批量刷磁盘
+ * <p>
+ * FSEditLog maintains a log of the namespace modifications
+ * FSEditLog管理整个namespace的变动. (整个目录数据)
  */
 @Log4j2
 public class FSEditLog {
@@ -19,13 +22,13 @@ public class FSEditLog {
     private final DoubleBuffer doubleBuffer;
     // 正在sync
     private volatile boolean isSyncing = false;
-    // 需要sync
-    private volatile boolean isWaitSync = false;
+    // 计划sync/需要sync
+    private volatile boolean isSchedulingSync = false;
     // 同步的最大txid
-    private volatile Long syncMaxTxid = 0L;
+    private volatile Long syncMaxTxId = 0L;
 
     // 分段: 不同线程有自己的id
-    private ThreadLocal<Long> localTxid = new ThreadLocal<>();
+    private ThreadLocal<Long> localTxId = new ThreadLocal<>();
 
     public FSEditLog() {
         this.doubleBuffer = new DoubleBuffer();
@@ -38,14 +41,38 @@ public class FSEditLog {
      */
     public void logEdit(String log) {
         synchronized (this) {
+            // 等待正在调度的刷盘操作
+            waitSchedulingSync(100);
+
             long txid = ++txidSeq;
             EditLog editLog = new EditLog(txid, log);
             doubleBuffer.write(editLog);
             // 更新当前线程的最大txid
-            localTxid.set(txid);
+            localTxId.set(txid);
+
+            // FIXME: 下面四句怎么看怎么别扭,
+            // trigger一下doubleBuffer的刷盘
+            if (!doubleBuffer.shouldSyncToDisk()) {
+                return;
+            }
+            // isSchedulingSync = true; 这个标记符不要在这里直接设置, 它的功能是包含在syncBuffer()函数里面的.
         }
 
         syncBuffer(); // trigger一下
+    }
+
+    /**
+     * 等待刷盘结束???? 有这个必要么?
+     */
+    private void waitSchedulingSync(int waitTime) {
+        try {
+            while (isSchedulingSync) {
+                wait(waitTime);
+            }
+        } catch (InterruptedException e) {
+            log.error("thread was waiting sync Buffer, but was interrupted", e);
+        }
+
     }
 
     /**
@@ -57,14 +84,14 @@ public class FSEditLog {
             // 有其他线程正在sync: 必须要进来看一下, 来保证最后一点数据也要刷出去.
             if (isSyncing) {
                 // 当前线程的txid都已经刷好了
-                if (localTxid.get() < syncMaxTxid) {
+                if (localTxId.get() < syncMaxTxId) {
                     return;
                 }
                 // 如果有别的线程在等, 直接返回.
-                if (isWaitSync) {
+                if (isSchedulingSync) {
                     return;
                 }
-                isWaitSync = true;
+                isSchedulingSync = true;
                 while (isSyncing) {
                     try {
                         wait(2000);
@@ -73,13 +100,16 @@ public class FSEditLog {
                         log.error(e);
                     }
                 }
-                isWaitSync = false;
+                isSchedulingSync = false;
             }
 
             // 交换两块buffer
             doubleBuffer.readyToSync();
-            // 记下来当前的刷数据状态
-            syncMaxTxid = doubleBuffer.getSyncBufferLatest();
+            // 这里修改成当前线程的最大txId.
+            // syncMaxTxId = localTxId.get(); // FIXME: 课程写法, 这里有问题, 可能拿到的是过期的txId, 还是原来的好
+            if ((syncMaxTxId = doubleBuffer.getSyncBufferLatest()) == null) {
+                return;
+            }
             isSyncing = true;
         }
 
@@ -87,6 +117,7 @@ public class FSEditLog {
         doubleBuffer.flush();
 
         synchronized (this) {
+            // 刷完盘了, 修改完标志位.
             isSyncing = false;
             // 把大家都叫醒.
             notifyAll();
