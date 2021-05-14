@@ -3,8 +3,8 @@
 
 package cn.gasin.dfs.rpc.namenode.service;
 
-public interface RegisterResponseOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:cn.gasin.dfs.rpc.namenode.RegisterResponse)
+public interface ShutdownResponseOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:cn.gasin.dfs.rpc.namenode.ShutdownResponse)
     com.google.protobuf.MessageOrBuilder {
 
   /**

@@ -2,6 +2,7 @@ package cn.gasin.dfs.client;
 
 import cn.gasin.dfs.rpc.namenode.grpc.ClientAPIGrpc;
 import cn.gasin.dfs.rpc.namenode.service.MkdirRequest;
+import cn.gasin.dfs.rpc.namenode.service.ShutdownRequest;
 import io.grpc.ManagedChannel;
 import io.grpc.netty.shaded.io.grpc.netty.NegotiationType;
 import io.grpc.netty.shaded.io.grpc.netty.NettyChannelBuilder;
@@ -33,6 +34,13 @@ public class FsClient {
      */
     public void mkdir(String path) {
         nameNodeServer.mkdir(MkdirRequest.newBuilder().setPath(path).build());
+    }
+
+    /**
+     * shutdown接口, 可以把amazing-dfs给关掉, 这个一般不会用.
+     */
+    public void shutdown() {
+        nameNodeServer.shutdown(ShutdownRequest.newBuilder().setClientName("xxxxx").build());
     }
 
     @SneakyThrows

@@ -57,4 +57,8 @@ public class FSDirectory {
         }
         return paths;
     }
+
+    public void shutdown() {
+        // 不知道该干什么
+    }
 }

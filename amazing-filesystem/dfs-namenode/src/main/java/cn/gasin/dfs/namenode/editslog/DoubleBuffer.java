@@ -1,15 +1,8 @@
 package cn.gasin.dfs.namenode.editslog;
 
-import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.channels.FileChannel;
-
-import static cn.gasin.dfs.namenode.config.Config.EDIT_LOG_BUFFER_SIZE_SYNC_THRESHOLD;
 
 /**
  * 内存的缓冲区: 准备两块缓冲, 交替着来.
@@ -34,7 +27,6 @@ public class DoubleBuffer {
         // 加入到buffer中.
         currentBuffer.offer(editLog);
     }
-
 
 
     /**
@@ -65,6 +57,6 @@ public class DoubleBuffer {
      * FIXME: 这里有一个问题: 如果currentBuf满了但是当前syncBuf还没有刷完, 这个时候要怎么处理? 要阻塞住?
      */
     public boolean shouldSyncToDisk() {
-        return currentBuffer.isFull();// size() >= EDIT_LOG_BUFFER_SIZE_SYNC_THRESHOLD;
+        return currentBuffer.isFull();
     }
 }

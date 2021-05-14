@@ -18,7 +18,7 @@ public final class ClientAPIGrpc {
 
   private ClientAPIGrpc() {}
 
-  public static final String SERVICE_NAME = "cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.ClientAPI";
+  public static final String SERVICE_NAME = "cn.gasin.dfs.rpc.namenode.ClientAPI";
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<MkdirRequest,
@@ -50,6 +50,37 @@ public final class ClientAPIGrpc {
       }
     }
     return getMkdirMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<cn.gasin.dfs.rpc.namenode.service.ShutdownRequest,
+      cn.gasin.dfs.rpc.namenode.service.ShutdownResponse> getShutdownMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "shutdown",
+      requestType = cn.gasin.dfs.rpc.namenode.service.ShutdownRequest.class,
+      responseType = cn.gasin.dfs.rpc.namenode.service.ShutdownResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<cn.gasin.dfs.rpc.namenode.service.ShutdownRequest,
+      cn.gasin.dfs.rpc.namenode.service.ShutdownResponse> getShutdownMethod() {
+    io.grpc.MethodDescriptor<cn.gasin.dfs.rpc.namenode.service.ShutdownRequest, cn.gasin.dfs.rpc.namenode.service.ShutdownResponse> getShutdownMethod;
+    if ((getShutdownMethod = ClientAPIGrpc.getShutdownMethod) == null) {
+      synchronized (ClientAPIGrpc.class) {
+        if ((getShutdownMethod = ClientAPIGrpc.getShutdownMethod) == null) {
+          ClientAPIGrpc.getShutdownMethod = getShutdownMethod =
+              io.grpc.MethodDescriptor.<cn.gasin.dfs.rpc.namenode.service.ShutdownRequest, cn.gasin.dfs.rpc.namenode.service.ShutdownResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "shutdown"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  cn.gasin.dfs.rpc.namenode.service.ShutdownRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  cn.gasin.dfs.rpc.namenode.service.ShutdownResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ClientAPIMethodDescriptorSupplier("shutdown"))
+              .build();
+        }
+      }
+    }
+    return getShutdownMethod;
   }
 
   /**
@@ -113,6 +144,16 @@ public final class ClientAPIGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getMkdirMethod(), responseObserver);
     }
 
+    /**
+     * <pre>
+     * stop amazing-dfs
+     * </pre>
+     */
+    public void shutdown(cn.gasin.dfs.rpc.namenode.service.ShutdownRequest request,
+        io.grpc.stub.StreamObserver<cn.gasin.dfs.rpc.namenode.service.ShutdownResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getShutdownMethod(), responseObserver);
+    }
+
     @Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -122,6 +163,13 @@ public final class ClientAPIGrpc {
                 MkdirRequest,
                 MkdirResponse>(
                   this, METHODID_MKDIR)))
+          .addMethod(
+            getShutdownMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                cn.gasin.dfs.rpc.namenode.service.ShutdownRequest,
+                cn.gasin.dfs.rpc.namenode.service.ShutdownResponse>(
+                  this, METHODID_SHUTDOWN)))
           .build();
     }
   }
@@ -153,6 +201,17 @@ public final class ClientAPIGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getMkdirMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * stop amazing-dfs
+     * </pre>
+     */
+    public void shutdown(cn.gasin.dfs.rpc.namenode.service.ShutdownRequest request,
+        io.grpc.stub.StreamObserver<cn.gasin.dfs.rpc.namenode.service.ShutdownResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getShutdownMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -180,6 +239,16 @@ public final class ClientAPIGrpc {
     public MkdirResponse mkdir(MkdirRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getMkdirMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * stop amazing-dfs
+     * </pre>
+     */
+    public cn.gasin.dfs.rpc.namenode.service.ShutdownResponse shutdown(cn.gasin.dfs.rpc.namenode.service.ShutdownRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getShutdownMethod(), getCallOptions(), request);
     }
   }
 
@@ -210,9 +279,21 @@ public final class ClientAPIGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getMkdirMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * stop amazing-dfs
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<cn.gasin.dfs.rpc.namenode.service.ShutdownResponse> shutdown(
+        cn.gasin.dfs.rpc.namenode.service.ShutdownRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getShutdownMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_MKDIR = 0;
+  private static final int METHODID_SHUTDOWN = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -234,6 +315,10 @@ public final class ClientAPIGrpc {
         case METHODID_MKDIR:
           serviceImpl.mkdir((MkdirRequest) request,
               (io.grpc.stub.StreamObserver<MkdirResponse>) responseObserver);
+          break;
+        case METHODID_SHUTDOWN:
+          serviceImpl.shutdown((cn.gasin.dfs.rpc.namenode.service.ShutdownRequest) request,
+              (io.grpc.stub.StreamObserver<cn.gasin.dfs.rpc.namenode.service.ShutdownResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -297,6 +382,7 @@ public final class ClientAPIGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new ClientAPIFileDescriptorSupplier())
               .addMethod(getMkdirMethod())
+              .addMethod(getShutdownMethod())
               .build();
         }
       }

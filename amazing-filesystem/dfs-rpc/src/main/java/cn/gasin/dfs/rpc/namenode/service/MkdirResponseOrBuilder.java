@@ -4,7 +4,7 @@
 package cn.gasin.dfs.rpc.namenode.service;
 
 public interface MkdirResponseOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.MkdirResponse)
+    // @@protoc_insertion_point(interface_extends:cn.gasin.dfs.rpc.namenode.MkdirResponse)
     com.google.protobuf.MessageOrBuilder {
 
   /**

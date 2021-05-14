@@ -4,11 +4,11 @@
 package cn.gasin.dfs.rpc.namenode.service;
 
 /**
- * Protobuf type {@code cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.MkdirRequest}
+ * Protobuf type {@code cn.gasin.dfs.rpc.namenode.MkdirRequest}
  */
 public final class MkdirRequest extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.MkdirRequest)
+    // @@protoc_insertion_point(message_implements:cn.gasin.dfs.rpc.namenode.MkdirRequest)
     MkdirRequestOrBuilder {
 private static final long serialVersionUID = 0L;
   // Use MkdirRequest.newBuilder() to construct.
@@ -99,7 +99,7 @@ private static final long serialVersionUID = 0L;
     if (ref instanceof String) {
       return (String) ref;
     } else {
-      com.google.protobuf.ByteString bs =
+      com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       String s = bs.toStringUtf8();
       path_ = s;
@@ -115,7 +115,7 @@ private static final long serialVersionUID = 0L;
       getPathBytes() {
     Object ref = path_;
     if (ref instanceof String) {
-      com.google.protobuf.ByteString b =
+      com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (String) ref);
       path_ = b;
@@ -280,11 +280,11 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.MkdirRequest}
+   * Protobuf type {@code cn.gasin.dfs.rpc.namenode.MkdirRequest}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.MkdirRequest)
+      // @@protoc_insertion_point(builder_implements:cn.gasin.dfs.rpc.namenode.MkdirRequest)
       MkdirRequestOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
@@ -299,7 +299,7 @@ private static final long serialVersionUID = 0L;
               MkdirRequest.class, Builder.class);
     }
 
-    // Construct using cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.service.MkdirRequest.newBuilder()
+    // Construct using cn.gasin.dfs.rpc.namenode.service.MkdirRequest.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -452,7 +452,7 @@ private static final long serialVersionUID = 0L;
         getPathBytes() {
       Object ref = path_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
         path_ = b;
@@ -471,7 +471,7 @@ private static final long serialVersionUID = 0L;
       if (value == null) {
     throw new NullPointerException();
   }
-
+  
       path_ = value;
       onChanged();
       return this;
@@ -481,7 +481,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearPath() {
-
+      
       path_ = getDefaultInstance().getPath();
       onChanged();
       return this;
@@ -497,7 +497,7 @@ private static final long serialVersionUID = 0L;
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
+      
       path_ = value;
       onChanged();
       return this;
@@ -515,10 +515,10 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.MkdirRequest)
+    // @@protoc_insertion_point(builder_scope:cn.gasin.dfs.rpc.namenode.MkdirRequest)
   }
 
-  // @@protoc_insertion_point(class_scope:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.MkdirRequest)
+  // @@protoc_insertion_point(class_scope:cn.gasin.dfs.rpc.namenode.MkdirRequest)
   private static final MkdirRequest DEFAULT_INSTANCE;
   static {
     DEFAULT_INSTANCE = new MkdirRequest();

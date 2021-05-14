@@ -4,11 +4,11 @@
 package cn.gasin.dfs.rpc.namenode.service;
 
 /**
- * Protobuf type {@code cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.RegisterRequest}
+ * Protobuf type {@code cn.gasin.dfs.rpc.namenode.RegisterRequest}
  */
 public final class RegisterRequest extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.RegisterRequest)
+    // @@protoc_insertion_point(message_implements:cn.gasin.dfs.rpc.namenode.RegisterRequest)
     RegisterRequestOrBuilder {
 private static final long serialVersionUID = 0L;
   // Use RegisterRequest.newBuilder() to construct.
@@ -111,7 +111,7 @@ private static final long serialVersionUID = 0L;
     if (ref instanceof String) {
       return (String) ref;
     } else {
-      com.google.protobuf.ByteString bs =
+      com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       String s = bs.toStringUtf8();
       ip_ = s;
@@ -127,7 +127,7 @@ private static final long serialVersionUID = 0L;
       getIpBytes() {
     Object ref = ip_;
     if (ref instanceof String) {
-      com.google.protobuf.ByteString b =
+      com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (String) ref);
       ip_ = b;
@@ -160,7 +160,7 @@ private static final long serialVersionUID = 0L;
     if (ref instanceof String) {
       return (String) ref;
     } else {
-      com.google.protobuf.ByteString bs =
+      com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       String s = bs.toStringUtf8();
       hostname_ = s;
@@ -176,7 +176,7 @@ private static final long serialVersionUID = 0L;
       getHostnameBytes() {
     Object ref = hostname_;
     if (ref instanceof String) {
-      com.google.protobuf.ByteString b =
+      com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (String) ref);
       hostname_ = b;
@@ -362,11 +362,11 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.RegisterRequest}
+   * Protobuf type {@code cn.gasin.dfs.rpc.namenode.RegisterRequest}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.RegisterRequest)
+      // @@protoc_insertion_point(builder_implements:cn.gasin.dfs.rpc.namenode.RegisterRequest)
       RegisterRequestOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
@@ -381,7 +381,7 @@ private static final long serialVersionUID = 0L;
               RegisterRequest.class, Builder.class);
     }
 
-    // Construct using cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.service.RegisterRequest.newBuilder()
+    // Construct using cn.gasin.dfs.rpc.namenode.service.RegisterRequest.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -547,7 +547,7 @@ private static final long serialVersionUID = 0L;
         getIpBytes() {
       Object ref = ip_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
         ip_ = b;
@@ -566,7 +566,7 @@ private static final long serialVersionUID = 0L;
       if (value == null) {
     throw new NullPointerException();
   }
-
+  
       ip_ = value;
       onChanged();
       return this;
@@ -576,7 +576,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearIp() {
-
+      
       ip_ = getDefaultInstance().getIp();
       onChanged();
       return this;
@@ -592,7 +592,7 @@ private static final long serialVersionUID = 0L;
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
+      
       ip_ = value;
       onChanged();
       return this;
@@ -613,7 +613,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setPort(int value) {
-
+      
       port_ = value;
       onChanged();
       return this;
@@ -623,7 +623,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearPort() {
-
+      
       port_ = 0;
       onChanged();
       return this;
@@ -654,7 +654,7 @@ private static final long serialVersionUID = 0L;
         getHostnameBytes() {
       Object ref = hostname_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
         hostname_ = b;
@@ -673,7 +673,7 @@ private static final long serialVersionUID = 0L;
       if (value == null) {
     throw new NullPointerException();
   }
-
+  
       hostname_ = value;
       onChanged();
       return this;
@@ -683,7 +683,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearHostname() {
-
+      
       hostname_ = getDefaultInstance().getHostname();
       onChanged();
       return this;
@@ -699,7 +699,7 @@ private static final long serialVersionUID = 0L;
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
+      
       hostname_ = value;
       onChanged();
       return this;
@@ -717,10 +717,10 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.RegisterRequest)
+    // @@protoc_insertion_point(builder_scope:cn.gasin.dfs.rpc.namenode.RegisterRequest)
   }
 
-  // @@protoc_insertion_point(class_scope:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.RegisterRequest)
+  // @@protoc_insertion_point(class_scope:cn.gasin.dfs.rpc.namenode.RegisterRequest)
   private static final RegisterRequest DEFAULT_INSTANCE;
   static {
     DEFAULT_INSTANCE = new RegisterRequest();

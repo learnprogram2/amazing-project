@@ -16,7 +16,7 @@ public final class ClusterMaintainAPIGrpc {
 
   private ClusterMaintainAPIGrpc() {}
 
-  public static final String SERVICE_NAME = "cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.ClusterMaintainAPI";
+  public static final String SERVICE_NAME = "cn.gasin.dfs.rpc.namenode.ClusterMaintainAPI";
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<RegisterRequest,

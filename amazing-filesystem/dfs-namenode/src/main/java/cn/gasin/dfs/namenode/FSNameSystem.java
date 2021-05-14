@@ -4,6 +4,8 @@ import cn.gasin.dfs.namenode.directory.FSDirectory;
 import cn.gasin.dfs.namenode.editslog.FSEditLog;
 import lombok.extern.log4j.Log4j2;
 
+import java.io.IOException;
+
 /**
  * nameNode的元数据
  */
@@ -24,12 +26,11 @@ public class FSNameSystem {
      *
      * @param path path of the new directory
      */
-    public Boolean mkdir(String path) {
+    public boolean mkdir(String path) {
         path = path.trim();
         try {
             fsDirectory.mkdir(path);
-            fsEditLog.logEdit("{\"OP\": \"MKDIR\", \"PATH\": \"" + path + "\"}");
-            return true;
+            return fsEditLog.logEdit("{\"OP\": \"MKDIR\", \"PATH\": \"" + path + "\"}");
         } catch (Exception e) {
             // todo 回退
             log.error("mkdir failed:", e);
@@ -37,7 +38,11 @@ public class FSNameSystem {
         }
     }
 
-    public void stop() {
-// C:\Users\yw31830\IdeaProjects\amazing-project\amazing-filesystem\dfs-namenode\target\classes\editLogs\11215 (The system cannot find the path specified)
+    // FIXME: 这里怎么保证最后一条写到内存里的, 必须要写到log里?
+    public void shutdown()  {
+        // 先把内存的目录关掉
+        fsDirectory = null; // .shutdown();
+        // 目录不能修改了, 也没有editsLog了, 再把log关掉.
+        fsEditLog.flush();
     }
 }

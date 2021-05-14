@@ -4,7 +4,7 @@
 package cn.gasin.dfs.rpc.namenode.service;
 
 public interface HeartbeatResponseOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.HeartbeatResponse)
+    // @@protoc_insertion_point(interface_extends:cn.gasin.dfs.rpc.namenode.HeartbeatResponse)
     com.google.protobuf.MessageOrBuilder {
 
   /**

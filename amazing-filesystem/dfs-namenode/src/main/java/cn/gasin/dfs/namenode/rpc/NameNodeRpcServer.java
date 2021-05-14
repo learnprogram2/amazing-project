@@ -1,11 +1,11 @@
 package cn.gasin.dfs.namenode.rpc;
 
+import cn.gasin.dfs.namenode.FSNameSystem;
+import cn.gasin.dfs.namenode.NameNode;
+import cn.gasin.dfs.namenode.cluster.DataNodeManager;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import lombok.extern.log4j.Log4j2;
-
-import cn.gasin.dfs.namenode.FSNameSystem;
-import cn.gasin.dfs.namenode.cluster.DataNodeManager;
 
 import java.io.IOException;
 
@@ -27,12 +27,12 @@ public class NameNodeRpcServer {
     ClusterMaintainService clusterMaintainService;
     ClientService clientService;
 
-    public NameNodeRpcServer(FSNameSystem fsNameSystem, DataNodeManager dataNodeManager) {
+    public NameNodeRpcServer(FSNameSystem fsNameSystem, DataNodeManager dataNodeManager, NameNode nameNode) {
         this.fsNameSystem = fsNameSystem;
         this.dataNodeManager = dataNodeManager;
 
         clusterMaintainService = new ClusterMaintainService(dataNodeManager);
-        clientService = new ClientService(fsNameSystem);
+        clientService = new ClientService(fsNameSystem, nameNode);
         clusterMaintainServer = ServerBuilder.forPort(NAME_NODE_PORT)
                 .addService(clusterMaintainService)
                 .addService(clientService)

@@ -1,9 +1,9 @@
 package cn.gasin.dfs.namenode;
 
 
-import lombok.extern.log4j.Log4j2;
 import cn.gasin.dfs.namenode.cluster.DataNodeManager;
 import cn.gasin.dfs.namenode.rpc.NameNodeRpcServer;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 
@@ -35,7 +35,7 @@ public class NameNode {
         this.dataNodeManager = new DataNodeManager();
 
         // rpc protocol.
-        this.rpcServer = new NameNodeRpcServer(fsNamesystem, dataNodeManager);
+        this.rpcServer = new NameNodeRpcServer(fsNamesystem, dataNodeManager, this);
         this.rpcServer.start();
     }
 
@@ -57,4 +57,22 @@ public class NameNode {
         nn.join(); // 始终阻塞在这里running.
     }
 
+    /**
+     * 把各个组件都关掉
+     */
+    public void shutdown() {
+        // 1. 把大家都叫醒, 该退出了
+        shouldRun = false;
+        synchronized (this) {
+            notifyAll();
+        }
+        // 2. 把组件都关闭.
+        fsNamesystem.shutdown();
+        dataNodeManager.shutdown();
+
+        // TODO 3. 再做一些什么, 把集群都关闭的事情.
+
+        // 4. 最后再关rpc
+        rpcServer.stop();
+    }
 }

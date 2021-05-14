@@ -44,6 +44,16 @@ public final class NameNodeServer {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_cn_gasin_dfs_rpc_namenode_MkdirRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_cn_gasin_dfs_rpc_namenode_ShutdownResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_cn_gasin_dfs_rpc_namenode_ShutdownResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_cn_gasin_dfs_rpc_namenode_ShutdownRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_cn_gasin_dfs_rpc_namenode_ShutdownRequest_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -54,7 +64,7 @@ public final class NameNodeServer {
   static {
     String[] descriptorData = {
       "\n\027NameNodeRpcServer.proto\022\031cn.gasin.dfs." +
-      "rpc.cn.gasin.dfs.namenode\"=\n\017RegisterRequest\022\n\n\002ip\030\001 " +
+      "rpc.namenode\"=\n\017RegisterRequest\022\n\n\002ip\030\001 " +
       "\001(\t\022\014\n\004port\030\002 \001(\005\022\020\n\010hostname\030\003 \001(\t\">\n\020H" +
       "eartbeatRequest\022\n\n\002ip\030\001 \001(\t\022\014\n\004port\030\002 \001(" +
       "\005\022\020\n\010hostname\030\003 \001(\t\"3\n\020RegisterResponse\022" +
@@ -62,17 +72,22 @@ public final class NameNodeServer {
       "tbeatResponse\022\016\n\006status\030\001 \001(\005\022\017\n\007message" +
       "\030\002 \001(\t\"0\n\rMkdirResponse\022\016\n\006status\030\001 \001(\005\022" +
       "\017\n\007message\030\002 \001(\t\"\034\n\014MkdirRequest\022\014\n\004path" +
-      "\030\001 \001(\t2\345\001\n\022ClusterMaintainAPI\022e\n\010registe" +
-      "r\022*.cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.RegisterRe" +
-      "quest\032+.cn.gasin.dfs.rpc.cn.gasin.dfs.namenode.Regist" +
-      "erResponse\"\000\022h\n\theartbeat\022+.cn.gasin.dfs" +
-      ".rpc.cn.gasin.dfs.namenode.HeartbeatRequest\032,.cn.gasi" +
-      "n.dfs.rpc.cn.gasin.dfs.namenode.HeartbeatResponse\"\0002i" +
-      "\n\tClientAPI\022\\\n\005mkdir\022\'.cn.gasin.dfs.rpc." +
-      "cn.gasin.dfs.namenode.MkdirRequest\032(.cn.gasin.dfs.rpc" +
-      ".cn.gasin.dfs.namenode.MkdirResponse\"\000B5\n!cn.gasin.df" +
-      "s.rpc.cn.gasin.dfs.namenode.serviceB\016NameNodeServerP\001" +
-      "b\006proto3"
+      "\030\001 \001(\t\"3\n\020ShutdownResponse\022\016\n\006status\030\001 \001" +
+      "(\005\022\017\n\007message\030\002 \001(\t\"%\n\017ShutdownRequest\022\022" +
+      "\n\nclientName\030\001 \001(\t2\345\001\n\022ClusterMaintainAP" +
+      "I\022e\n\010register\022*.cn.gasin.dfs.rpc.namenod" +
+      "e.RegisterRequest\032+.cn.gasin.dfs.rpc.nam" +
+      "enode.RegisterResponse\"\000\022h\n\theartbeat\022+." +
+      "cn.gasin.dfs.rpc.namenode.HeartbeatReque" +
+      "st\032,.cn.gasin.dfs.rpc.namenode.Heartbeat" +
+      "Response\"\0002\320\001\n\tClientAPI\022\\\n\005mkdir\022\'.cn.g" +
+      "asin.dfs.rpc.namenode.MkdirRequest\032(.cn." +
+      "gasin.dfs.rpc.namenode.MkdirResponse\"\000\022e" +
+      "\n\010shutdown\022*.cn.gasin.dfs.rpc.namenode.S" +
+      "hutdownRequest\032+.cn.gasin.dfs.rpc.nameno" +
+      "de.ShutdownResponse\"\000B5\n!cn.gasin.dfs.rp" +
+      "c.namenode.serviceB\016NameNodeServerP\001b\006pr" +
+      "oto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -114,6 +129,18 @@ public final class NameNodeServer {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cn_gasin_dfs_rpc_namenode_MkdirRequest_descriptor,
         new String[] { "Path", });
+    internal_static_cn_gasin_dfs_rpc_namenode_ShutdownResponse_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_cn_gasin_dfs_rpc_namenode_ShutdownResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_cn_gasin_dfs_rpc_namenode_ShutdownResponse_descriptor,
+        new String[] { "Status", "Message", });
+    internal_static_cn_gasin_dfs_rpc_namenode_ShutdownRequest_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_cn_gasin_dfs_rpc_namenode_ShutdownRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_cn_gasin_dfs_rpc_namenode_ShutdownRequest_descriptor,
+        new String[] { "ClientName", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

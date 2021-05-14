@@ -52,6 +52,11 @@ public class DataNodeManager {
     }
 
     public void stop() {
+        // TODO: 这里有停机要实现
 
+    }
+
+    public void shutdown() {
+        stop();
     }
 }

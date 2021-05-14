@@ -41,7 +41,7 @@ public class FSEditLog {
      * Write an operation to the edit log
      * 写log到缓冲区里面.
      */
-    public void logEdit(String log) throws IOException {
+    public boolean logEdit(String log) throws IOException {
         // 保证到buffer中的log的txId是递增的, 这很重要;
         // TODO: multi-layer-call concurrent codeStyle: 多层调用并发的id递增控制技巧, 从一开始就控制(锁上)在这里synchronized, 比在里面弄, 好理解, 简单.
         synchronized (this) {
@@ -57,12 +57,13 @@ public class FSEditLog {
             // FIXME: 下面四句怎么看怎么别扭,
             // trigger一下doubleBuffer的刷盘
             if (!doubleBuffer.shouldSyncToDisk()) {
-                return;
+                return false;
             }
             // isSchedulingSync = true; 这个标记符不要在这里直接设置, 它的功能是包含在syncBuffer()函数里面的.
         }
 
         syncBuffer(); // trigger一下
+        return true;
     }
 
     /**
@@ -128,4 +129,18 @@ public class FSEditLog {
         }
     }
 
+    /**
+     * 强制的刷盘: 我总觉得这里有点问题,
+     * FIXME: 如果别的线程在上面syncBuffer()刷盘呢, 这边直接拿锁是管不住他们的, 只能不让新的线程进来.
+     */
+    public void flush() {
+        synchronized (this) {
+            doubleBuffer.readyToSync(); // 这里是不是该判断一下, 不能打扰正在刷盘的线程.
+            try {
+                doubleBuffer.flush();
+            } catch (IOException e) {
+                log.error("", e);
+            }
+        }
+    }
 }
