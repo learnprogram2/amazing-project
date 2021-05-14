@@ -7,7 +7,7 @@ public class Config {
 
 
     // logBuffer刷盘的容量阈值.
-    public static final int EDIT_LOG_BUFFER_SIZE_SYNC_THRESHOLD = 512 * 1024;
+    public static final int EDIT_LOG_BUFFER_SIZE_SYNC_THRESHOLD = 25 * 1024;
 
 
 

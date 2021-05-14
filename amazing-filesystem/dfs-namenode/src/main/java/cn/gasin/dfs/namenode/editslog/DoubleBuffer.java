@@ -1,6 +1,13 @@
 package cn.gasin.dfs.namenode.editslog;
 
+import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
 
 import static cn.gasin.dfs.namenode.config.Config.EDIT_LOG_BUFFER_SIZE_SYNC_THRESHOLD;
 
@@ -23,10 +30,12 @@ public class DoubleBuffer {
         syncBuffer = new EditLogBuffer();
     }
 
-    public void write(EditLog editLog) {
+    public void write(EditLog editLog) throws IOException {
         // 加入到buffer中.
         currentBuffer.offer(editLog);
     }
+
+
 
     /**
      * 交换两个buffer
@@ -42,13 +51,13 @@ public class DoubleBuffer {
      * 把准备好的一块缓冲区数据刷到磁盘
      * 阻塞方法.
      */
-    public synchronized void flush() {
+    public void flush() throws IOException {
         syncBuffer.flush();
         log.info("flush success");
     }
 
     public Long getSyncBufferLatest() {
-        return syncBuffer.getLast() == null ? null : syncBuffer.getLast().getTxid();
+        return syncBuffer.getLatestLog() == null ? null : syncBuffer.getLatestLog().getTxid();
     }
 
     /**
@@ -56,6 +65,6 @@ public class DoubleBuffer {
      * FIXME: 这里有一个问题: 如果currentBuf满了但是当前syncBuf还没有刷完, 这个时候要怎么处理? 要阻塞住?
      */
     public boolean shouldSyncToDisk() {
-        return currentBuffer.size() >= EDIT_LOG_BUFFER_SIZE_SYNC_THRESHOLD;
+        return currentBuffer.isFull();// size() >= EDIT_LOG_BUFFER_SIZE_SYNC_THRESHOLD;
     }
 }

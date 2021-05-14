@@ -28,15 +28,16 @@ public class FSNameSystem {
         path = path.trim();
         try {
             fsDirectory.mkdir(path);
-            fsEditLog.logEdit("mkdir:" + path);
+            fsEditLog.logEdit("{\"OP\": \"MKDIR\", \"PATH\": \"" + path + "\"}");
             return true;
         } catch (Exception e) {
             // todo 回退
+            log.error("mkdir failed:", e);
             return false;
         }
     }
 
     public void stop() {
-
+// C:\Users\yw31830\IdeaProjects\amazing-project\amazing-filesystem\dfs-namenode\target\classes\editLogs\11215 (The system cannot find the path specified)
     }
 }

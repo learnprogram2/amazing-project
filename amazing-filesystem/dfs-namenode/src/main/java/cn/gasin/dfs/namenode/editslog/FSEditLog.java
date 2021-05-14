@@ -2,6 +2,8 @@ package cn.gasin.dfs.namenode.editslog;
 
 import lombok.extern.log4j.Log4j2;
 
+import java.io.IOException;
+
 /**
  * maintain edit-log.
  * 专门负责管理写入edits log到磁盘文件里去
@@ -39,7 +41,9 @@ public class FSEditLog {
      * Write an operation to the edit log
      * 写log到缓冲区里面.
      */
-    public void logEdit(String log) {
+    public void logEdit(String log) throws IOException {
+        // 保证到buffer中的log的txId是递增的, 这很重要;
+        // TODO: multi-layer-call concurrent codeStyle: 多层调用并发的id递增控制技巧, 从一开始就控制(锁上)在这里synchronized, 比在里面弄, 好理解, 简单.
         synchronized (this) {
             // 等待正在调度的刷盘操作
             waitSchedulingSync(100);
@@ -79,7 +83,7 @@ public class FSEditLog {
      * 尝试把buffer的数据刷一下
      * 1. 使用synchronized来保证并发.
      */
-    private void syncBuffer() {
+    private void syncBuffer() throws IOException {
         synchronized (this) {
             // 有其他线程正在sync: 必须要进来看一下, 来保证最后一点数据也要刷出去.
             if (isSyncing) {

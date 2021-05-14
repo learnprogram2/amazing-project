@@ -3,6 +3,8 @@ package cn.gasin.dfs.namenode.editslog;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 
+import java.nio.charset.StandardCharsets;
+
 /**
  * 一条log
  */
@@ -15,5 +17,9 @@ public class EditLog {
     public EditLog(long txid, String content) {
         this.txid = txid;
         this.content = content;
+    }
+
+    public byte[] getBytes() {
+        return content.getBytes(StandardCharsets.UTF_8);
     }
 }
