@@ -11,7 +11,7 @@ public interface HeartbeatRequestOrBuilder extends
    * <code>string ip = 1;</code>
    * @return The ip.
    */
-  String getIp();
+  java.lang.String getIp();
   /**
    * <code>string ip = 1;</code>
    * @return The bytes for ip.
@@ -29,7 +29,7 @@ public interface HeartbeatRequestOrBuilder extends
    * <code>string hostname = 3;</code>
    * @return The hostname.
    */
-  String getHostname();
+  java.lang.String getHostname();
   /**
    * <code>string hostname = 3;</code>
    * @return The bytes for hostname.

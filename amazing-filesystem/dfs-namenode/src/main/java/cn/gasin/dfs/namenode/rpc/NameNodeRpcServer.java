@@ -26,6 +26,7 @@ public class NameNodeRpcServer {
     Server clusterMaintainServer;
     ClusterMaintainService clusterMaintainService;
     ClientService clientService;
+    NameNodeBackupService nameNodeBackupService;
 
     public NameNodeRpcServer(FSNameSystem fsNameSystem, DataNodeManager dataNodeManager, NameNode nameNode) {
         this.fsNameSystem = fsNameSystem;
@@ -33,9 +34,11 @@ public class NameNodeRpcServer {
 
         clusterMaintainService = new ClusterMaintainService(dataNodeManager);
         clientService = new ClientService(fsNameSystem, nameNode);
+        nameNodeBackupService = new NameNodeBackupService();
         clusterMaintainServer = ServerBuilder.forPort(NAME_NODE_PORT)
                 .addService(clusterMaintainService)
                 .addService(clientService)
+                .addService(nameNodeBackupService)
                 .build();
 
         // 添加系统停止时候的停止rpcServer
@@ -59,7 +62,7 @@ public class NameNodeRpcServer {
         if (clusterMaintainServer != null) {
             clusterMaintainServer.shutdown();
         }
-        fsNameSystem.stop();
+        fsNameSystem.shutdown();
         dataNodeManager.stop();
     }
 
@@ -68,7 +71,7 @@ public class NameNodeRpcServer {
         if (clusterMaintainServer != null) {
             clusterMaintainServer.awaitTermination();
         }
-        fsNameSystem.stop();
+        fsNameSystem.shutdown();
         dataNodeManager.stop();
     }
 

@@ -17,7 +17,7 @@ public interface HeartbeatResponseOrBuilder extends
    * <code>string message = 2;</code>
    * @return The message.
    */
-  String getMessage();
+  java.lang.String getMessage();
   /**
    * <code>string message = 2;</code>
    * @return The bytes for message.

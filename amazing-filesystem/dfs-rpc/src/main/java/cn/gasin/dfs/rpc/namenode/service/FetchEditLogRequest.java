@@ -4,26 +4,26 @@
 package cn.gasin.dfs.rpc.namenode.service;
 
 /**
- * Protobuf type {@code cn.gasin.dfs.rpc.namenode.HeartbeatResponse}
+ * Protobuf type {@code cn.gasin.dfs.rpc.namenode.FetchEditLogRequest}
  */
-public final class HeartbeatResponse extends
+public final class FetchEditLogRequest extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:cn.gasin.dfs.rpc.namenode.HeartbeatResponse)
-    HeartbeatResponseOrBuilder {
+    // @@protoc_insertion_point(message_implements:cn.gasin.dfs.rpc.namenode.FetchEditLogRequest)
+    FetchEditLogRequestOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use HeartbeatResponse.newBuilder() to construct.
-  private HeartbeatResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use FetchEditLogRequest.newBuilder() to construct.
+  private FetchEditLogRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private HeartbeatResponse() {
-    message_ = "";
+  private FetchEditLogRequest() {
+    backupNodeId_ = "";
   }
 
   @java.lang.Override
   @SuppressWarnings({"unused"})
   protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
-    return new HeartbeatResponse();
+    return new FetchEditLogRequest();
   }
 
   @java.lang.Override
@@ -31,7 +31,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private HeartbeatResponse(
+  private FetchEditLogRequest(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -49,15 +49,20 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 8: {
-
-            status_ = input.readInt32();
-            break;
-          }
-          case 18: {
+          case 10: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            message_ = s;
+            backupNodeId_ = s;
+            break;
+          }
+          case 16: {
+
+            expectStartTxId_ = input.readInt64();
+            break;
+          }
+          case 24: {
+
+            expectEndTxId_ = input.readInt64();
             break;
           }
           default: {
@@ -81,64 +86,75 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return cn.gasin.dfs.rpc.namenode.service.NameNodeServer.internal_static_cn_gasin_dfs_rpc_namenode_HeartbeatResponse_descriptor;
+    return cn.gasin.dfs.rpc.namenode.service.NameNodeServer.internal_static_cn_gasin_dfs_rpc_namenode_FetchEditLogRequest_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return cn.gasin.dfs.rpc.namenode.service.NameNodeServer.internal_static_cn_gasin_dfs_rpc_namenode_HeartbeatResponse_fieldAccessorTable
+    return cn.gasin.dfs.rpc.namenode.service.NameNodeServer.internal_static_cn_gasin_dfs_rpc_namenode_FetchEditLogRequest_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse.class, cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse.Builder.class);
+            cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest.class, cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest.Builder.class);
   }
 
-  public static final int STATUS_FIELD_NUMBER = 1;
-  private int status_;
+  public static final int BACKUPNODEID_FIELD_NUMBER = 1;
+  private volatile java.lang.Object backupNodeId_;
   /**
-   * <code>int32 status = 1;</code>
-   * @return The status.
+   * <code>string backupNodeId = 1;</code>
+   * @return The backupNodeId.
    */
   @java.lang.Override
-  public int getStatus() {
-    return status_;
-  }
-
-  public static final int MESSAGE_FIELD_NUMBER = 2;
-  private volatile java.lang.Object message_;
-  /**
-   * <code>string message = 2;</code>
-   * @return The message.
-   */
-  @java.lang.Override
-  public java.lang.String getMessage() {
-    java.lang.Object ref = message_;
+  public java.lang.String getBackupNodeId() {
+    java.lang.Object ref = backupNodeId_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      message_ = s;
+      backupNodeId_ = s;
       return s;
     }
   }
   /**
-   * <code>string message = 2;</code>
-   * @return The bytes for message.
+   * <code>string backupNodeId = 1;</code>
+   * @return The bytes for backupNodeId.
    */
   @java.lang.Override
   public com.google.protobuf.ByteString
-      getMessageBytes() {
-    java.lang.Object ref = message_;
+      getBackupNodeIdBytes() {
+    java.lang.Object ref = backupNodeId_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      message_ = b;
+      backupNodeId_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
     }
+  }
+
+  public static final int EXPECTSTARTTXID_FIELD_NUMBER = 2;
+  private long expectStartTxId_;
+  /**
+   * <code>int64 expectStartTxId = 2;</code>
+   * @return The expectStartTxId.
+   */
+  @java.lang.Override
+  public long getExpectStartTxId() {
+    return expectStartTxId_;
+  }
+
+  public static final int EXPECTENDTXID_FIELD_NUMBER = 3;
+  private long expectEndTxId_;
+  /**
+   * <code>int64 expectEndTxId = 3;</code>
+   * @return The expectEndTxId.
+   */
+  @java.lang.Override
+  public long getExpectEndTxId() {
+    return expectEndTxId_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -155,11 +171,14 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (status_ != 0) {
-      output.writeInt32(1, status_);
+    if (!getBackupNodeIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, backupNodeId_);
     }
-    if (!getMessageBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, message_);
+    if (expectStartTxId_ != 0L) {
+      output.writeInt64(2, expectStartTxId_);
+    }
+    if (expectEndTxId_ != 0L) {
+      output.writeInt64(3, expectEndTxId_);
     }
     unknownFields.writeTo(output);
   }
@@ -170,12 +189,16 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (status_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, status_);
+    if (!getBackupNodeIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, backupNodeId_);
     }
-    if (!getMessageBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, message_);
+    if (expectStartTxId_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(2, expectStartTxId_);
+    }
+    if (expectEndTxId_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(3, expectEndTxId_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -187,15 +210,17 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse)) {
+    if (!(obj instanceof cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest)) {
       return super.equals(obj);
     }
-    cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse other = (cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse) obj;
+    cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest other = (cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest) obj;
 
-    if (getStatus()
-        != other.getStatus()) return false;
-    if (!getMessage()
-        .equals(other.getMessage())) return false;
+    if (!getBackupNodeId()
+        .equals(other.getBackupNodeId())) return false;
+    if (getExpectStartTxId()
+        != other.getExpectStartTxId()) return false;
+    if (getExpectEndTxId()
+        != other.getExpectEndTxId()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -207,78 +232,82 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + STATUS_FIELD_NUMBER;
-    hash = (53 * hash) + getStatus();
-    hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
-    hash = (53 * hash) + getMessage().hashCode();
+    hash = (37 * hash) + BACKUPNODEID_FIELD_NUMBER;
+    hash = (53 * hash) + getBackupNodeId().hashCode();
+    hash = (37 * hash) + EXPECTSTARTTXID_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getExpectStartTxId());
+    hash = (37 * hash) + EXPECTENDTXID_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getExpectEndTxId());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse parseFrom(
+  public static cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse parseFrom(
+  public static cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse parseFrom(
+  public static cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse parseFrom(
+  public static cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse parseFrom(byte[] data)
+  public static cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse parseFrom(
+  public static cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse parseFrom(java.io.InputStream input)
+  public static cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse parseFrom(
+  public static cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse parseDelimitedFrom(java.io.InputStream input)
+  public static cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse parseDelimitedFrom(
+  public static cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse parseFrom(
+  public static cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse parseFrom(
+  public static cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -291,7 +320,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse prototype) {
+  public static Builder newBuilder(cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -307,26 +336,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code cn.gasin.dfs.rpc.namenode.HeartbeatResponse}
+   * Protobuf type {@code cn.gasin.dfs.rpc.namenode.FetchEditLogRequest}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:cn.gasin.dfs.rpc.namenode.HeartbeatResponse)
-      cn.gasin.dfs.rpc.namenode.service.HeartbeatResponseOrBuilder {
+      // @@protoc_insertion_point(builder_implements:cn.gasin.dfs.rpc.namenode.FetchEditLogRequest)
+      cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequestOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return cn.gasin.dfs.rpc.namenode.service.NameNodeServer.internal_static_cn_gasin_dfs_rpc_namenode_HeartbeatResponse_descriptor;
+      return cn.gasin.dfs.rpc.namenode.service.NameNodeServer.internal_static_cn_gasin_dfs_rpc_namenode_FetchEditLogRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return cn.gasin.dfs.rpc.namenode.service.NameNodeServer.internal_static_cn_gasin_dfs_rpc_namenode_HeartbeatResponse_fieldAccessorTable
+      return cn.gasin.dfs.rpc.namenode.service.NameNodeServer.internal_static_cn_gasin_dfs_rpc_namenode_FetchEditLogRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse.class, cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse.Builder.class);
+              cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest.class, cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest.Builder.class);
     }
 
-    // Construct using cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse.newBuilder()
+    // Construct using cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -344,9 +373,11 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      status_ = 0;
+      backupNodeId_ = "";
 
-      message_ = "";
+      expectStartTxId_ = 0L;
+
+      expectEndTxId_ = 0L;
 
       return this;
     }
@@ -354,17 +385,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return cn.gasin.dfs.rpc.namenode.service.NameNodeServer.internal_static_cn_gasin_dfs_rpc_namenode_HeartbeatResponse_descriptor;
+      return cn.gasin.dfs.rpc.namenode.service.NameNodeServer.internal_static_cn_gasin_dfs_rpc_namenode_FetchEditLogRequest_descriptor;
     }
 
     @java.lang.Override
-    public cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse getDefaultInstanceForType() {
-      return cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse.getDefaultInstance();
+    public cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest getDefaultInstanceForType() {
+      return cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest.getDefaultInstance();
     }
 
     @java.lang.Override
-    public cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse build() {
-      cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse result = buildPartial();
+    public cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest build() {
+      cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -372,10 +403,11 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse buildPartial() {
-      cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse result = new cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse(this);
-      result.status_ = status_;
-      result.message_ = message_;
+    public cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest buildPartial() {
+      cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest result = new cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest(this);
+      result.backupNodeId_ = backupNodeId_;
+      result.expectStartTxId_ = expectStartTxId_;
+      result.expectEndTxId_ = expectEndTxId_;
       onBuilt();
       return result;
     }
@@ -414,22 +446,25 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse) {
-        return mergeFrom((cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse)other);
+      if (other instanceof cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest) {
+        return mergeFrom((cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse other) {
-      if (other == cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse.getDefaultInstance()) return this;
-      if (other.getStatus() != 0) {
-        setStatus(other.getStatus());
-      }
-      if (!other.getMessage().isEmpty()) {
-        message_ = other.message_;
+    public Builder mergeFrom(cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest other) {
+      if (other == cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest.getDefaultInstance()) return this;
+      if (!other.getBackupNodeId().isEmpty()) {
+        backupNodeId_ = other.backupNodeId_;
         onChanged();
+      }
+      if (other.getExpectStartTxId() != 0L) {
+        setExpectStartTxId(other.getExpectStartTxId());
+      }
+      if (other.getExpectEndTxId() != 0L) {
+        setExpectEndTxId(other.getExpectEndTxId());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -446,11 +481,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse parsedMessage = null;
+      cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse) e.getUnfinishedMessage();
+        parsedMessage = (cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -460,109 +495,140 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int status_ ;
+    private java.lang.Object backupNodeId_ = "";
     /**
-     * <code>int32 status = 1;</code>
-     * @return The status.
+     * <code>string backupNodeId = 1;</code>
+     * @return The backupNodeId.
      */
-    @java.lang.Override
-    public int getStatus() {
-      return status_;
-    }
-    /**
-     * <code>int32 status = 1;</code>
-     * @param value The status to set.
-     * @return This builder for chaining.
-     */
-    public Builder setStatus(int value) {
-      
-      status_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>int32 status = 1;</code>
-     * @return This builder for chaining.
-     */
-    public Builder clearStatus() {
-      
-      status_ = 0;
-      onChanged();
-      return this;
-    }
-
-    private java.lang.Object message_ = "";
-    /**
-     * <code>string message = 2;</code>
-     * @return The message.
-     */
-    public java.lang.String getMessage() {
-      java.lang.Object ref = message_;
+    public java.lang.String getBackupNodeId() {
+      java.lang.Object ref = backupNodeId_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        message_ = s;
+        backupNodeId_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string message = 2;</code>
-     * @return The bytes for message.
+     * <code>string backupNodeId = 1;</code>
+     * @return The bytes for backupNodeId.
      */
     public com.google.protobuf.ByteString
-        getMessageBytes() {
-      java.lang.Object ref = message_;
+        getBackupNodeIdBytes() {
+      java.lang.Object ref = backupNodeId_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        message_ = b;
+        backupNodeId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string message = 2;</code>
-     * @param value The message to set.
+     * <code>string backupNodeId = 1;</code>
+     * @param value The backupNodeId to set.
      * @return This builder for chaining.
      */
-    public Builder setMessage(
+    public Builder setBackupNodeId(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      message_ = value;
+      backupNodeId_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string message = 2;</code>
+     * <code>string backupNodeId = 1;</code>
      * @return This builder for chaining.
      */
-    public Builder clearMessage() {
+    public Builder clearBackupNodeId() {
       
-      message_ = getDefaultInstance().getMessage();
+      backupNodeId_ = getDefaultInstance().getBackupNodeId();
       onChanged();
       return this;
     }
     /**
-     * <code>string message = 2;</code>
-     * @param value The bytes for message to set.
+     * <code>string backupNodeId = 1;</code>
+     * @param value The bytes for backupNodeId to set.
      * @return This builder for chaining.
      */
-    public Builder setMessageBytes(
+    public Builder setBackupNodeIdBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      message_ = value;
+      backupNodeId_ = value;
+      onChanged();
+      return this;
+    }
+
+    private long expectStartTxId_ ;
+    /**
+     * <code>int64 expectStartTxId = 2;</code>
+     * @return The expectStartTxId.
+     */
+    @java.lang.Override
+    public long getExpectStartTxId() {
+      return expectStartTxId_;
+    }
+    /**
+     * <code>int64 expectStartTxId = 2;</code>
+     * @param value The expectStartTxId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setExpectStartTxId(long value) {
+      
+      expectStartTxId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int64 expectStartTxId = 2;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearExpectStartTxId() {
+      
+      expectStartTxId_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private long expectEndTxId_ ;
+    /**
+     * <code>int64 expectEndTxId = 3;</code>
+     * @return The expectEndTxId.
+     */
+    @java.lang.Override
+    public long getExpectEndTxId() {
+      return expectEndTxId_;
+    }
+    /**
+     * <code>int64 expectEndTxId = 3;</code>
+     * @param value The expectEndTxId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setExpectEndTxId(long value) {
+      
+      expectEndTxId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int64 expectEndTxId = 3;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearExpectEndTxId() {
+      
+      expectEndTxId_ = 0L;
       onChanged();
       return this;
     }
@@ -579,41 +645,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:cn.gasin.dfs.rpc.namenode.HeartbeatResponse)
+    // @@protoc_insertion_point(builder_scope:cn.gasin.dfs.rpc.namenode.FetchEditLogRequest)
   }
 
-  // @@protoc_insertion_point(class_scope:cn.gasin.dfs.rpc.namenode.HeartbeatResponse)
-  private static final cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:cn.gasin.dfs.rpc.namenode.FetchEditLogRequest)
+  private static final cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse();
+    DEFAULT_INSTANCE = new cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest();
   }
 
-  public static cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse getDefaultInstance() {
+  public static cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<HeartbeatResponse>
-      PARSER = new com.google.protobuf.AbstractParser<HeartbeatResponse>() {
+  private static final com.google.protobuf.Parser<FetchEditLogRequest>
+      PARSER = new com.google.protobuf.AbstractParser<FetchEditLogRequest>() {
     @java.lang.Override
-    public HeartbeatResponse parsePartialFrom(
+    public FetchEditLogRequest parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new HeartbeatResponse(input, extensionRegistry);
+      return new FetchEditLogRequest(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<HeartbeatResponse> parser() {
+  public static com.google.protobuf.Parser<FetchEditLogRequest> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<HeartbeatResponse> getParserForType() {
+  public com.google.protobuf.Parser<FetchEditLogRequest> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse getDefaultInstanceForType() {
+  public cn.gasin.dfs.rpc.namenode.service.FetchEditLogRequest getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

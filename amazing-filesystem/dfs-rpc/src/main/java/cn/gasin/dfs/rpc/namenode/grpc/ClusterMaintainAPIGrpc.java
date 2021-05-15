@@ -19,29 +19,29 @@ public final class ClusterMaintainAPIGrpc {
   public static final String SERVICE_NAME = "cn.gasin.dfs.rpc.namenode.ClusterMaintainAPI";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<RegisterRequest,
-          RegisterResponse> getRegisterMethod;
+  private static volatile io.grpc.MethodDescriptor<cn.gasin.dfs.rpc.namenode.service.RegisterRequest,
+      cn.gasin.dfs.rpc.namenode.service.RegisterResponse> getRegisterMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "register",
-      requestType = RegisterRequest.class,
-      responseType = RegisterResponse.class,
+      requestType = cn.gasin.dfs.rpc.namenode.service.RegisterRequest.class,
+      responseType = cn.gasin.dfs.rpc.namenode.service.RegisterResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<RegisterRequest,
-      RegisterResponse> getRegisterMethod() {
-    io.grpc.MethodDescriptor<RegisterRequest, RegisterResponse> getRegisterMethod;
+  public static io.grpc.MethodDescriptor<cn.gasin.dfs.rpc.namenode.service.RegisterRequest,
+      cn.gasin.dfs.rpc.namenode.service.RegisterResponse> getRegisterMethod() {
+    io.grpc.MethodDescriptor<cn.gasin.dfs.rpc.namenode.service.RegisterRequest, cn.gasin.dfs.rpc.namenode.service.RegisterResponse> getRegisterMethod;
     if ((getRegisterMethod = ClusterMaintainAPIGrpc.getRegisterMethod) == null) {
       synchronized (ClusterMaintainAPIGrpc.class) {
         if ((getRegisterMethod = ClusterMaintainAPIGrpc.getRegisterMethod) == null) {
           ClusterMaintainAPIGrpc.getRegisterMethod = getRegisterMethod =
-              io.grpc.MethodDescriptor.<RegisterRequest, RegisterResponse>newBuilder()
+              io.grpc.MethodDescriptor.<cn.gasin.dfs.rpc.namenode.service.RegisterRequest, cn.gasin.dfs.rpc.namenode.service.RegisterResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "register"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  RegisterRequest.getDefaultInstance()))
+                  cn.gasin.dfs.rpc.namenode.service.RegisterRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  RegisterResponse.getDefaultInstance()))
+                  cn.gasin.dfs.rpc.namenode.service.RegisterResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ClusterMaintainAPIMethodDescriptorSupplier("register"))
               .build();
         }
@@ -50,29 +50,29 @@ public final class ClusterMaintainAPIGrpc {
     return getRegisterMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<HeartbeatRequest,
-          HeartbeatResponse> getHeartbeatMethod;
+  private static volatile io.grpc.MethodDescriptor<cn.gasin.dfs.rpc.namenode.service.HeartbeatRequest,
+      cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse> getHeartbeatMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "heartbeat",
-      requestType = HeartbeatRequest.class,
-      responseType = HeartbeatResponse.class,
+      requestType = cn.gasin.dfs.rpc.namenode.service.HeartbeatRequest.class,
+      responseType = cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<HeartbeatRequest,
-      HeartbeatResponse> getHeartbeatMethod() {
-    io.grpc.MethodDescriptor<HeartbeatRequest, HeartbeatResponse> getHeartbeatMethod;
+  public static io.grpc.MethodDescriptor<cn.gasin.dfs.rpc.namenode.service.HeartbeatRequest,
+      cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse> getHeartbeatMethod() {
+    io.grpc.MethodDescriptor<cn.gasin.dfs.rpc.namenode.service.HeartbeatRequest, cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse> getHeartbeatMethod;
     if ((getHeartbeatMethod = ClusterMaintainAPIGrpc.getHeartbeatMethod) == null) {
       synchronized (ClusterMaintainAPIGrpc.class) {
         if ((getHeartbeatMethod = ClusterMaintainAPIGrpc.getHeartbeatMethod) == null) {
           ClusterMaintainAPIGrpc.getHeartbeatMethod = getHeartbeatMethod =
-              io.grpc.MethodDescriptor.<HeartbeatRequest, HeartbeatResponse>newBuilder()
+              io.grpc.MethodDescriptor.<cn.gasin.dfs.rpc.namenode.service.HeartbeatRequest, cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "heartbeat"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  HeartbeatRequest.getDefaultInstance()))
+                  cn.gasin.dfs.rpc.namenode.service.HeartbeatRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  HeartbeatResponse.getDefaultInstance()))
+                  cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ClusterMaintainAPIMethodDescriptorSupplier("heartbeat"))
               .build();
         }
@@ -87,7 +87,7 @@ public final class ClusterMaintainAPIGrpc {
   public static ClusterMaintainAPIStub newStub(io.grpc.Channel channel) {
     io.grpc.stub.AbstractStub.StubFactory<ClusterMaintainAPIStub> factory =
       new io.grpc.stub.AbstractStub.StubFactory<ClusterMaintainAPIStub>() {
-        @Override
+        @java.lang.Override
         public ClusterMaintainAPIStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
           return new ClusterMaintainAPIStub(channel, callOptions);
         }
@@ -102,7 +102,7 @@ public final class ClusterMaintainAPIGrpc {
       io.grpc.Channel channel) {
     io.grpc.stub.AbstractStub.StubFactory<ClusterMaintainAPIBlockingStub> factory =
       new io.grpc.stub.AbstractStub.StubFactory<ClusterMaintainAPIBlockingStub>() {
-        @Override
+        @java.lang.Override
         public ClusterMaintainAPIBlockingStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
           return new ClusterMaintainAPIBlockingStub(channel, callOptions);
         }
@@ -117,7 +117,7 @@ public final class ClusterMaintainAPIGrpc {
       io.grpc.Channel channel) {
     io.grpc.stub.AbstractStub.StubFactory<ClusterMaintainAPIFutureStub> factory =
       new io.grpc.stub.AbstractStub.StubFactory<ClusterMaintainAPIFutureStub>() {
-        @Override
+        @java.lang.Override
         public ClusterMaintainAPIFutureStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
           return new ClusterMaintainAPIFutureStub(channel, callOptions);
         }
@@ -137,8 +137,8 @@ public final class ClusterMaintainAPIGrpc {
      * Register api
      * </pre>
      */
-    public void register(RegisterRequest request,
-                         io.grpc.stub.StreamObserver<RegisterResponse> responseObserver) {
+    public void register(cn.gasin.dfs.rpc.namenode.service.RegisterRequest request,
+        io.grpc.stub.StreamObserver<cn.gasin.dfs.rpc.namenode.service.RegisterResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRegisterMethod(), responseObserver);
     }
 
@@ -147,26 +147,26 @@ public final class ClusterMaintainAPIGrpc {
      * heartbeat api
      * </pre>
      */
-    public void heartbeat(HeartbeatRequest request,
-                          io.grpc.stub.StreamObserver<HeartbeatResponse> responseObserver) {
+    public void heartbeat(cn.gasin.dfs.rpc.namenode.service.HeartbeatRequest request,
+        io.grpc.stub.StreamObserver<cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getHeartbeatMethod(), responseObserver);
     }
 
-    @Override public final io.grpc.ServerServiceDefinition bindService() {
+    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             getRegisterMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                RegisterRequest,
-                RegisterResponse>(
+                cn.gasin.dfs.rpc.namenode.service.RegisterRequest,
+                cn.gasin.dfs.rpc.namenode.service.RegisterResponse>(
                   this, METHODID_REGISTER)))
           .addMethod(
             getHeartbeatMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                HeartbeatRequest,
-                HeartbeatResponse>(
+                cn.gasin.dfs.rpc.namenode.service.HeartbeatRequest,
+                cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse>(
                   this, METHODID_HEARTBEAT)))
           .build();
     }
@@ -183,7 +183,7 @@ public final class ClusterMaintainAPIGrpc {
       super(channel, callOptions);
     }
 
-    @Override
+    @java.lang.Override
     protected ClusterMaintainAPIStub build(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       return new ClusterMaintainAPIStub(channel, callOptions);
@@ -194,8 +194,8 @@ public final class ClusterMaintainAPIGrpc {
      * Register api
      * </pre>
      */
-    public void register(RegisterRequest request,
-                         io.grpc.stub.StreamObserver<RegisterResponse> responseObserver) {
+    public void register(cn.gasin.dfs.rpc.namenode.service.RegisterRequest request,
+        io.grpc.stub.StreamObserver<cn.gasin.dfs.rpc.namenode.service.RegisterResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getRegisterMethod(), getCallOptions()), request, responseObserver);
     }
@@ -205,8 +205,8 @@ public final class ClusterMaintainAPIGrpc {
      * heartbeat api
      * </pre>
      */
-    public void heartbeat(HeartbeatRequest request,
-                          io.grpc.stub.StreamObserver<HeartbeatResponse> responseObserver) {
+    public void heartbeat(cn.gasin.dfs.rpc.namenode.service.HeartbeatRequest request,
+        io.grpc.stub.StreamObserver<cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getHeartbeatMethod(), getCallOptions()), request, responseObserver);
     }
@@ -223,7 +223,7 @@ public final class ClusterMaintainAPIGrpc {
       super(channel, callOptions);
     }
 
-    @Override
+    @java.lang.Override
     protected ClusterMaintainAPIBlockingStub build(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       return new ClusterMaintainAPIBlockingStub(channel, callOptions);
@@ -234,7 +234,7 @@ public final class ClusterMaintainAPIGrpc {
      * Register api
      * </pre>
      */
-    public RegisterResponse register(RegisterRequest request) {
+    public cn.gasin.dfs.rpc.namenode.service.RegisterResponse register(cn.gasin.dfs.rpc.namenode.service.RegisterRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getRegisterMethod(), getCallOptions(), request);
     }
@@ -244,7 +244,7 @@ public final class ClusterMaintainAPIGrpc {
      * heartbeat api
      * </pre>
      */
-    public HeartbeatResponse heartbeat(HeartbeatRequest request) {
+    public cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse heartbeat(cn.gasin.dfs.rpc.namenode.service.HeartbeatRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getHeartbeatMethod(), getCallOptions(), request);
     }
@@ -261,7 +261,7 @@ public final class ClusterMaintainAPIGrpc {
       super(channel, callOptions);
     }
 
-    @Override
+    @java.lang.Override
     protected ClusterMaintainAPIFutureStub build(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       return new ClusterMaintainAPIFutureStub(channel, callOptions);
@@ -272,8 +272,8 @@ public final class ClusterMaintainAPIGrpc {
      * Register api
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<RegisterResponse> register(
-        RegisterRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<cn.gasin.dfs.rpc.namenode.service.RegisterResponse> register(
+        cn.gasin.dfs.rpc.namenode.service.RegisterRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getRegisterMethod(), getCallOptions()), request);
     }
@@ -283,8 +283,8 @@ public final class ClusterMaintainAPIGrpc {
      * heartbeat api
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<HeartbeatResponse> heartbeat(
-        HeartbeatRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse> heartbeat(
+        cn.gasin.dfs.rpc.namenode.service.HeartbeatRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getHeartbeatMethod(), getCallOptions()), request);
     }
@@ -306,25 +306,25 @@ public final class ClusterMaintainAPIGrpc {
       this.methodId = methodId;
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
+    @java.lang.Override
+    @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_REGISTER:
-          serviceImpl.register((RegisterRequest) request,
-              (io.grpc.stub.StreamObserver<RegisterResponse>) responseObserver);
+          serviceImpl.register((cn.gasin.dfs.rpc.namenode.service.RegisterRequest) request,
+              (io.grpc.stub.StreamObserver<cn.gasin.dfs.rpc.namenode.service.RegisterResponse>) responseObserver);
           break;
         case METHODID_HEARTBEAT:
-          serviceImpl.heartbeat((HeartbeatRequest) request,
-              (io.grpc.stub.StreamObserver<HeartbeatResponse>) responseObserver);
+          serviceImpl.heartbeat((cn.gasin.dfs.rpc.namenode.service.HeartbeatRequest) request,
+              (io.grpc.stub.StreamObserver<cn.gasin.dfs.rpc.namenode.service.HeartbeatResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
       }
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
+    @java.lang.Override
+    @java.lang.SuppressWarnings("unchecked")
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
@@ -338,12 +338,12 @@ public final class ClusterMaintainAPIGrpc {
       implements io.grpc.protobuf.ProtoFileDescriptorSupplier, io.grpc.protobuf.ProtoServiceDescriptorSupplier {
     ClusterMaintainAPIBaseDescriptorSupplier() {}
 
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return NameNodeServer.getDescriptor();
+      return cn.gasin.dfs.rpc.namenode.service.NameNodeServer.getDescriptor();
     }
 
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Descriptors.ServiceDescriptor getServiceDescriptor() {
       return getFileDescriptor().findServiceByName("ClusterMaintainAPI");
     }
@@ -363,7 +363,7 @@ public final class ClusterMaintainAPIGrpc {
       this.methodName = methodName;
     }
 
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Descriptors.MethodDescriptor getMethodDescriptor() {
       return getServiceDescriptor().findMethodByName(methodName);
     }

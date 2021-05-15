@@ -11,7 +11,7 @@ public interface MkdirRequestOrBuilder extends
    * <code>string path = 1;</code>
    * @return The path.
    */
-  String getPath();
+  java.lang.String getPath();
   /**
    * <code>string path = 1;</code>
    * @return The bytes for path.

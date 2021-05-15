@@ -3,8 +3,8 @@
 
 package cn.gasin.dfs.rpc.namenode.service;
 
-public interface MkdirResponseOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:cn.gasin.dfs.rpc.namenode.MkdirResponse)
+public interface FetchEditLogResponseOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:cn.gasin.dfs.rpc.namenode.FetchEditLogResponse)
     com.google.protobuf.MessageOrBuilder {
 
   /**
@@ -24,4 +24,16 @@ public interface MkdirResponseOrBuilder extends
    */
   com.google.protobuf.ByteString
       getMessageBytes();
+
+  /**
+   * <code>string editLogJson = 3;</code>
+   * @return The editLogJson.
+   */
+  java.lang.String getEditLogJson();
+  /**
+   * <code>string editLogJson = 3;</code>
+   * @return The bytes for editLogJson.
+   */
+  com.google.protobuf.ByteString
+      getEditLogJsonBytes();
 }

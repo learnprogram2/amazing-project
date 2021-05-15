@@ -11,7 +11,7 @@ public interface ShutdownRequestOrBuilder extends
    * <code>string clientName = 1;</code>
    * @return The clientName.
    */
-  String getClientName();
+  java.lang.String getClientName();
   /**
    * <code>string clientName = 1;</code>
    * @return The bytes for clientName.

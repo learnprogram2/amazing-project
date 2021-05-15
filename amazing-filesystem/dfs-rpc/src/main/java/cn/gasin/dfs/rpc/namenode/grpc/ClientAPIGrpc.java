@@ -1,9 +1,5 @@
 package cn.gasin.dfs.rpc.namenode.grpc;
 
-import cn.gasin.dfs.rpc.namenode.service.MkdirRequest;
-import cn.gasin.dfs.rpc.namenode.service.MkdirResponse;
-import cn.gasin.dfs.rpc.namenode.service.NameNodeServer;
-
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 
 /**
@@ -21,29 +17,29 @@ public final class ClientAPIGrpc {
   public static final String SERVICE_NAME = "cn.gasin.dfs.rpc.namenode.ClientAPI";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<MkdirRequest,
-          MkdirResponse> getMkdirMethod;
+  private static volatile io.grpc.MethodDescriptor<cn.gasin.dfs.rpc.namenode.service.MkdirRequest,
+      cn.gasin.dfs.rpc.namenode.service.MkdirResponse> getMkdirMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "mkdir",
-      requestType = MkdirRequest.class,
-      responseType = MkdirResponse.class,
+      requestType = cn.gasin.dfs.rpc.namenode.service.MkdirRequest.class,
+      responseType = cn.gasin.dfs.rpc.namenode.service.MkdirResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<MkdirRequest,
-      MkdirResponse> getMkdirMethod() {
-    io.grpc.MethodDescriptor<MkdirRequest, MkdirResponse> getMkdirMethod;
+  public static io.grpc.MethodDescriptor<cn.gasin.dfs.rpc.namenode.service.MkdirRequest,
+      cn.gasin.dfs.rpc.namenode.service.MkdirResponse> getMkdirMethod() {
+    io.grpc.MethodDescriptor<cn.gasin.dfs.rpc.namenode.service.MkdirRequest, cn.gasin.dfs.rpc.namenode.service.MkdirResponse> getMkdirMethod;
     if ((getMkdirMethod = ClientAPIGrpc.getMkdirMethod) == null) {
       synchronized (ClientAPIGrpc.class) {
         if ((getMkdirMethod = ClientAPIGrpc.getMkdirMethod) == null) {
           ClientAPIGrpc.getMkdirMethod = getMkdirMethod =
-              io.grpc.MethodDescriptor.<MkdirRequest, MkdirResponse>newBuilder()
+              io.grpc.MethodDescriptor.<cn.gasin.dfs.rpc.namenode.service.MkdirRequest, cn.gasin.dfs.rpc.namenode.service.MkdirResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "mkdir"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  MkdirRequest.getDefaultInstance()))
+                  cn.gasin.dfs.rpc.namenode.service.MkdirRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  MkdirResponse.getDefaultInstance()))
+                  cn.gasin.dfs.rpc.namenode.service.MkdirResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ClientAPIMethodDescriptorSupplier("mkdir"))
               .build();
         }
@@ -89,7 +85,7 @@ public final class ClientAPIGrpc {
   public static ClientAPIStub newStub(io.grpc.Channel channel) {
     io.grpc.stub.AbstractStub.StubFactory<ClientAPIStub> factory =
       new io.grpc.stub.AbstractStub.StubFactory<ClientAPIStub>() {
-        @Override
+        @java.lang.Override
         public ClientAPIStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
           return new ClientAPIStub(channel, callOptions);
         }
@@ -104,7 +100,7 @@ public final class ClientAPIGrpc {
       io.grpc.Channel channel) {
     io.grpc.stub.AbstractStub.StubFactory<ClientAPIBlockingStub> factory =
       new io.grpc.stub.AbstractStub.StubFactory<ClientAPIBlockingStub>() {
-        @Override
+        @java.lang.Override
         public ClientAPIBlockingStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
           return new ClientAPIBlockingStub(channel, callOptions);
         }
@@ -119,7 +115,7 @@ public final class ClientAPIGrpc {
       io.grpc.Channel channel) {
     io.grpc.stub.AbstractStub.StubFactory<ClientAPIFutureStub> factory =
       new io.grpc.stub.AbstractStub.StubFactory<ClientAPIFutureStub>() {
-        @Override
+        @java.lang.Override
         public ClientAPIFutureStub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
           return new ClientAPIFutureStub(channel, callOptions);
         }
@@ -139,8 +135,8 @@ public final class ClientAPIGrpc {
      * Register api
      * </pre>
      */
-    public void mkdir(MkdirRequest request,
-                      io.grpc.stub.StreamObserver<MkdirResponse> responseObserver) {
+    public void mkdir(cn.gasin.dfs.rpc.namenode.service.MkdirRequest request,
+        io.grpc.stub.StreamObserver<cn.gasin.dfs.rpc.namenode.service.MkdirResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getMkdirMethod(), responseObserver);
     }
 
@@ -154,14 +150,14 @@ public final class ClientAPIGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getShutdownMethod(), responseObserver);
     }
 
-    @Override public final io.grpc.ServerServiceDefinition bindService() {
+    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             getMkdirMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                MkdirRequest,
-                MkdirResponse>(
+                cn.gasin.dfs.rpc.namenode.service.MkdirRequest,
+                cn.gasin.dfs.rpc.namenode.service.MkdirResponse>(
                   this, METHODID_MKDIR)))
           .addMethod(
             getShutdownMethod(),
@@ -185,7 +181,7 @@ public final class ClientAPIGrpc {
       super(channel, callOptions);
     }
 
-    @Override
+    @java.lang.Override
     protected ClientAPIStub build(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       return new ClientAPIStub(channel, callOptions);
@@ -196,8 +192,8 @@ public final class ClientAPIGrpc {
      * Register api
      * </pre>
      */
-    public void mkdir(MkdirRequest request,
-                      io.grpc.stub.StreamObserver<MkdirResponse> responseObserver) {
+    public void mkdir(cn.gasin.dfs.rpc.namenode.service.MkdirRequest request,
+        io.grpc.stub.StreamObserver<cn.gasin.dfs.rpc.namenode.service.MkdirResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getMkdirMethod(), getCallOptions()), request, responseObserver);
     }
@@ -225,7 +221,7 @@ public final class ClientAPIGrpc {
       super(channel, callOptions);
     }
 
-    @Override
+    @java.lang.Override
     protected ClientAPIBlockingStub build(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       return new ClientAPIBlockingStub(channel, callOptions);
@@ -236,7 +232,7 @@ public final class ClientAPIGrpc {
      * Register api
      * </pre>
      */
-    public MkdirResponse mkdir(MkdirRequest request) {
+    public cn.gasin.dfs.rpc.namenode.service.MkdirResponse mkdir(cn.gasin.dfs.rpc.namenode.service.MkdirRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getMkdirMethod(), getCallOptions(), request);
     }
@@ -263,7 +259,7 @@ public final class ClientAPIGrpc {
       super(channel, callOptions);
     }
 
-    @Override
+    @java.lang.Override
     protected ClientAPIFutureStub build(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       return new ClientAPIFutureStub(channel, callOptions);
@@ -274,8 +270,8 @@ public final class ClientAPIGrpc {
      * Register api
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<MkdirResponse> mkdir(
-        MkdirRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<cn.gasin.dfs.rpc.namenode.service.MkdirResponse> mkdir(
+        cn.gasin.dfs.rpc.namenode.service.MkdirRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getMkdirMethod(), getCallOptions()), request);
     }
@@ -308,13 +304,13 @@ public final class ClientAPIGrpc {
       this.methodId = methodId;
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
+    @java.lang.Override
+    @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_MKDIR:
-          serviceImpl.mkdir((MkdirRequest) request,
-              (io.grpc.stub.StreamObserver<MkdirResponse>) responseObserver);
+          serviceImpl.mkdir((cn.gasin.dfs.rpc.namenode.service.MkdirRequest) request,
+              (io.grpc.stub.StreamObserver<cn.gasin.dfs.rpc.namenode.service.MkdirResponse>) responseObserver);
           break;
         case METHODID_SHUTDOWN:
           serviceImpl.shutdown((cn.gasin.dfs.rpc.namenode.service.ShutdownRequest) request,
@@ -325,8 +321,8 @@ public final class ClientAPIGrpc {
       }
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
+    @java.lang.Override
+    @java.lang.SuppressWarnings("unchecked")
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
@@ -340,12 +336,12 @@ public final class ClientAPIGrpc {
       implements io.grpc.protobuf.ProtoFileDescriptorSupplier, io.grpc.protobuf.ProtoServiceDescriptorSupplier {
     ClientAPIBaseDescriptorSupplier() {}
 
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return NameNodeServer.getDescriptor();
+      return cn.gasin.dfs.rpc.namenode.service.NameNodeServer.getDescriptor();
     }
 
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Descriptors.ServiceDescriptor getServiceDescriptor() {
       return getFileDescriptor().findServiceByName("ClientAPI");
     }
@@ -365,7 +361,7 @@ public final class ClientAPIGrpc {
       this.methodName = methodName;
     }
 
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Descriptors.MethodDescriptor getMethodDescriptor() {
       return getServiceDescriptor().findMethodByName(methodName);
     }

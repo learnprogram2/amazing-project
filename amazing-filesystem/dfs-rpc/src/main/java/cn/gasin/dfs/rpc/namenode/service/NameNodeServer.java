@@ -54,6 +54,16 @@ public final class NameNodeServer {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_cn_gasin_dfs_rpc_namenode_ShutdownRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_cn_gasin_dfs_rpc_namenode_FetchEditLogResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_cn_gasin_dfs_rpc_namenode_FetchEditLogResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_cn_gasin_dfs_rpc_namenode_FetchEditLogRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_cn_gasin_dfs_rpc_namenode_FetchEditLogRequest_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -62,7 +72,7 @@ public final class NameNodeServer {
   private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
-    String[] descriptorData = {
+    java.lang.String[] descriptorData = {
       "\n\027NameNodeRpcServer.proto\022\031cn.gasin.dfs." +
       "rpc.namenode\"=\n\017RegisterRequest\022\n\n\002ip\030\001 " +
       "\001(\t\022\014\n\004port\030\002 \001(\005\022\020\n\010hostname\030\003 \001(\t\">\n\020H" +
@@ -74,20 +84,27 @@ public final class NameNodeServer {
       "\017\n\007message\030\002 \001(\t\"\034\n\014MkdirRequest\022\014\n\004path" +
       "\030\001 \001(\t\"3\n\020ShutdownResponse\022\016\n\006status\030\001 \001" +
       "(\005\022\017\n\007message\030\002 \001(\t\"%\n\017ShutdownRequest\022\022" +
-      "\n\nclientName\030\001 \001(\t2\345\001\n\022ClusterMaintainAP" +
-      "I\022e\n\010register\022*.cn.gasin.dfs.rpc.namenod" +
-      "e.RegisterRequest\032+.cn.gasin.dfs.rpc.nam" +
-      "enode.RegisterResponse\"\000\022h\n\theartbeat\022+." +
-      "cn.gasin.dfs.rpc.namenode.HeartbeatReque" +
-      "st\032,.cn.gasin.dfs.rpc.namenode.Heartbeat" +
-      "Response\"\0002\320\001\n\tClientAPI\022\\\n\005mkdir\022\'.cn.g" +
-      "asin.dfs.rpc.namenode.MkdirRequest\032(.cn." +
-      "gasin.dfs.rpc.namenode.MkdirResponse\"\000\022e" +
-      "\n\010shutdown\022*.cn.gasin.dfs.rpc.namenode.S" +
-      "hutdownRequest\032+.cn.gasin.dfs.rpc.nameno" +
-      "de.ShutdownResponse\"\000B5\n!cn.gasin.dfs.rp" +
-      "c.namenode.serviceB\016NameNodeServerP\001b\006pr" +
-      "oto3"
+      "\n\nclientName\030\001 \001(\t\"L\n\024FetchEditLogRespon" +
+      "se\022\016\n\006status\030\001 \001(\005\022\017\n\007message\030\002 \001(\t\022\023\n\013e" +
+      "ditLogJson\030\003 \001(\t\"[\n\023FetchEditLogRequest\022" +
+      "\024\n\014backupNodeId\030\001 \001(\t\022\027\n\017expectStartTxId" +
+      "\030\002 \001(\003\022\025\n\rexpectEndTxId\030\003 \001(\0032\345\001\n\022Cluste" +
+      "rMaintainAPI\022e\n\010register\022*.cn.gasin.dfs." +
+      "rpc.namenode.RegisterRequest\032+.cn.gasin." +
+      "dfs.rpc.namenode.RegisterResponse\"\000\022h\n\th" +
+      "eartbeat\022+.cn.gasin.dfs.rpc.namenode.Hea" +
+      "rtbeatRequest\032,.cn.gasin.dfs.rpc.namenod" +
+      "e.HeartbeatResponse\"\0002\320\001\n\tClientAPI\022\\\n\005m" +
+      "kdir\022\'.cn.gasin.dfs.rpc.namenode.MkdirRe" +
+      "quest\032(.cn.gasin.dfs.rpc.namenode.MkdirR" +
+      "esponse\"\000\022e\n\010shutdown\022*.cn.gasin.dfs.rpc" +
+      ".namenode.ShutdownRequest\032+.cn.gasin.dfs" +
+      ".rpc.namenode.ShutdownResponse\"\0002\206\001\n\021Nam" +
+      "eNodeBackupAPI\022q\n\014fetchEditLog\022..cn.gasi" +
+      "n.dfs.rpc.namenode.FetchEditLogRequest\032/" +
+      ".cn.gasin.dfs.rpc.namenode.FetchEditLogR" +
+      "esponse\"\000B5\n!cn.gasin.dfs.rpc.namenode.s" +
+      "erviceB\016NameNodeServerP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -98,49 +115,61 @@ public final class NameNodeServer {
     internal_static_cn_gasin_dfs_rpc_namenode_RegisterRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cn_gasin_dfs_rpc_namenode_RegisterRequest_descriptor,
-        new String[] { "Ip", "Port", "Hostname", });
+        new java.lang.String[] { "Ip", "Port", "Hostname", });
     internal_static_cn_gasin_dfs_rpc_namenode_HeartbeatRequest_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_cn_gasin_dfs_rpc_namenode_HeartbeatRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cn_gasin_dfs_rpc_namenode_HeartbeatRequest_descriptor,
-        new String[] { "Ip", "Port", "Hostname", });
+        new java.lang.String[] { "Ip", "Port", "Hostname", });
     internal_static_cn_gasin_dfs_rpc_namenode_RegisterResponse_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_cn_gasin_dfs_rpc_namenode_RegisterResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cn_gasin_dfs_rpc_namenode_RegisterResponse_descriptor,
-        new String[] { "Status", "Message", });
+        new java.lang.String[] { "Status", "Message", });
     internal_static_cn_gasin_dfs_rpc_namenode_HeartbeatResponse_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_cn_gasin_dfs_rpc_namenode_HeartbeatResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cn_gasin_dfs_rpc_namenode_HeartbeatResponse_descriptor,
-        new String[] { "Status", "Message", });
+        new java.lang.String[] { "Status", "Message", });
     internal_static_cn_gasin_dfs_rpc_namenode_MkdirResponse_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_cn_gasin_dfs_rpc_namenode_MkdirResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cn_gasin_dfs_rpc_namenode_MkdirResponse_descriptor,
-        new String[] { "Status", "Message", });
+        new java.lang.String[] { "Status", "Message", });
     internal_static_cn_gasin_dfs_rpc_namenode_MkdirRequest_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_cn_gasin_dfs_rpc_namenode_MkdirRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cn_gasin_dfs_rpc_namenode_MkdirRequest_descriptor,
-        new String[] { "Path", });
+        new java.lang.String[] { "Path", });
     internal_static_cn_gasin_dfs_rpc_namenode_ShutdownResponse_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_cn_gasin_dfs_rpc_namenode_ShutdownResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cn_gasin_dfs_rpc_namenode_ShutdownResponse_descriptor,
-        new String[] { "Status", "Message", });
+        new java.lang.String[] { "Status", "Message", });
     internal_static_cn_gasin_dfs_rpc_namenode_ShutdownRequest_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_cn_gasin_dfs_rpc_namenode_ShutdownRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cn_gasin_dfs_rpc_namenode_ShutdownRequest_descriptor,
-        new String[] { "ClientName", });
+        new java.lang.String[] { "ClientName", });
+    internal_static_cn_gasin_dfs_rpc_namenode_FetchEditLogResponse_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_cn_gasin_dfs_rpc_namenode_FetchEditLogResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_cn_gasin_dfs_rpc_namenode_FetchEditLogResponse_descriptor,
+        new java.lang.String[] { "Status", "Message", "EditLogJson", });
+    internal_static_cn_gasin_dfs_rpc_namenode_FetchEditLogRequest_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_cn_gasin_dfs_rpc_namenode_FetchEditLogRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_cn_gasin_dfs_rpc_namenode_FetchEditLogRequest_descriptor,
+        new java.lang.String[] { "BackupNodeId", "ExpectStartTxId", "ExpectEndTxId", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

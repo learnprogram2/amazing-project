@@ -12,16 +12,27 @@
     <artifactId>amazing-filesystem</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>dfs-cn.gasin.dfs.datanode</module>
-        <module>dfs-cn.gasin.dfs.namenode</module>
+        <module>dfs-datanode</module>
+        <module>dfs-namenode</module>
         <module>dfs-client</module>
         <module>dfs-rpc</module>
+        <module>dfs-backupnode</module>
     </modules>
 
     <dependencies>
 
     </dependencies>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.45</version>
+            </dependency>
+        </dependencies>
+
+    </dependencyManagement>
 
     <build>
         <plugins>
