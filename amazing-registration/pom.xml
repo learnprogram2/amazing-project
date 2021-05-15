@@ -17,4 +17,11 @@
         <module>amazing-server</module>
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>cn.gasin</groupId>
+            <artifactId>amazing-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>

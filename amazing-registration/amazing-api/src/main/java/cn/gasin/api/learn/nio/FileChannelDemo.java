@@ -70,8 +70,8 @@ public class FileChannelDemo {
 
 
     // 8. 基本使用: 把buffer通过channel输出到文件.
-    public void basicUse() throws IOException {
-        FileOutputStream fileOutputStream = new FileOutputStream(".\\xx.txt");
+    public static void basicUse() throws IOException {
+        FileOutputStream fileOutputStream = new FileOutputStream("C:\\Users\\yw31830\\IdeaProjects\\amazing-project\\amazing-filesystem\\dfs-namenode\\target\\classes\\editLogs\\xx.txt");
         FileChannel channel = fileOutputStream.getChannel();
 
 
